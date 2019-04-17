@@ -7,7 +7,7 @@ Matriculation Number: 17-549-171
 Project idea short description: 
 
 #### General Idea
-The goal is to add an extra level of gamification to the personal study planning. The module Path should be displayed as a progress path. With gems you can unlock modules on your path on the journey to 180 Credits. When all Keys are found in the four different worlds "Foundation", "Became Expert", "Context" and "Project" you are able to unlock and open the Gates of the Final Boss "Thesis".
+The goal is to add an extra level of gamification to the personal study planning. The module Path should be displayed as a progress path. With gems you can unlock modules on your path on the journey to 180 Credits. When all Keys are found in the four different worlds "Foundation", "Became Expert", "Context" and "Project" you are able to unlock and open the Gates to the Final Boss "Thesis".
 Let's call it:  
 
 ```

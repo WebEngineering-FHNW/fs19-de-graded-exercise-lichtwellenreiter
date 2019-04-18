@@ -3,6 +3,7 @@
 ## Commit Proposal
 
 Matriculation Number: 17-549-171
+Email               :
 
 Project idea short description: 
 
@@ -34,7 +35,12 @@ A small PoC can be found in this [jsfiddle](https://jsfiddle.net/lichtwellenreit
 
 ## Project confirmation
 
-< to be filled by lecturer>
+Cool. That sounds like considerable effort, though.
+Try to find a way to have a simple version running and expand from there.
+
+Confirmed.
+
+D. König
 
 
 ## Project delivery <to be filled by student>

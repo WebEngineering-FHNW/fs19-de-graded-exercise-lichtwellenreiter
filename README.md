@@ -2,7 +2,7 @@
 
 ## Commit Proposal
 
-Matriculation Number: 17-549-171
+Matriculation Number: 17-549-171  
 Email               : florian.thievent@students.fhnw.ch
 
 Project idea short description: 

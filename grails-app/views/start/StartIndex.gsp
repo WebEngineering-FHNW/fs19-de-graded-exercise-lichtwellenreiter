@@ -13,6 +13,7 @@
     <title>Dungeons'n'Credits</title>
     <asset:stylesheet src="start.css"/>
 </head>
+
 <body>
 
 <main>
@@ -20,6 +21,7 @@
     <section class="center-box login" id="login">
         <h2>Dungeons'n'Credits</h2>
         <h4>Login to your journey</h4>
+
         <form>
             <label for="email">Username</label>
             <input id="email" name="email" type="email">
@@ -31,9 +33,9 @@
         </form>
 
         <div class="footer-info">
-        need an account?
-        lost password?<br/>
-        What ist that all about?
+            <p class="box-toggle" onclick="toggleBoxes('register')">need an account?</p>
+            <p class="box-toggle" onclick="toggleBoxes('pwlost')">lost password?</p>
+            <p class="box-toggle" onclick="toggleBoxes('allabout')">What is it all about?</p>
         </div>
     </section>
 
@@ -41,27 +43,45 @@
     <section class="center-box register" id="register">
         <h2>Dungeons'n'Credits</h2>
         <h4>Register to start the journey</h4>
+
         <form>
 
         </form>
+
         <div class="footer-info">
-        already got an account?
-        What ist that all about?
+            <p class="box-toggle" onclick="toggleBoxes()">already got an account?</p>
+            <p class="box-toggle" onclick="toggleBoxes('allabout')">What is it all about?</p>
         </div>
     </section>
 
-    <section class="center-box pw-lost" id="pw-lost">
+    <section class="center-box pw-lost" id="pwlost">
         <h2>Dungeons'n'Credits</h2>
         <h4>Enter your E-Mail to reset access to your account</h4>
+
         <form>
 
             <input type="email" name="email">
             <button type="submit">request</button>
 
         </form>
+
         <div class="footer-info">
-        nevermind! gho back.
-        What ist that all about?
+            <p class="box-toggle" onclick="toggleBoxes()">nevermind! go back.</p>
+            <p class="box-toggle" onclick="toggleBoxes('allabout')">What is it all about?</p>
+        </div>
+    </section>
+
+    <section class="center-box pw-lost" id="allabout">
+        <h2>Dungeons'n'Credits</h2>
+        <h4>What is it all about?</h4>
+
+        <p>
+            This is a gamification of the module Path at the FHNW BSc Computer Science. It is part of the webec Module.
+        </p>
+
+
+        <div class="footer-info">
+            <p class="box-toggle" onclick="toggleBoxes()">thanks, but go back.</p>
         </div>
     </section>
 
@@ -71,12 +91,40 @@
 
     var loginBox = document.getElementById("login")
     var registerBox = document.getElementById("register");
-    var lostPwBox = document.getElementById("pw-lost");
+    var lostPwBox = document.getElementById("pwlost");
+    var allAbout = document.getElementById("allabout");
 
-    loginBox.style.display = 'none';
-    registerBox.style.display = 'none';
-    // lostPwBox.style.display = 'none';
+    function toggleBoxes(requestBox) {
 
+        switch (requestBox) {
+            case 'register':
+                loginBox.style.visibility = 'hidden';
+                registerBox.style.visibility = 'visible';
+                lostPwBox.style.visibility = 'hidden';
+                allAbout.style.visibility = 'hidden';
+                break;
+            case 'pwlost':
+                loginBox.style.visibility = 'hidden';
+                registerBox.style.visibility = 'hidden';
+                lostPwBox.style.visibility = 'visible';
+                allAbout.style.visibility = 'hidden';
+                break;
+            case 'allabout':
+                loginBox.style.visibility = 'hidden';
+                registerBox.style.visibility = 'hidden';
+                lostPwBox.style.visibility = 'hidden';
+                allAbout.style.visibility = 'visible';
+                break;
+            default:
+                loginBox.style.visibility = 'visible';
+                registerBox.style.visibility = 'hidden';
+                lostPwBox.style.visibility = 'hidden';
+                allAbout.style.visibility = 'hidden';
+                break;
+        }
+    }
+
+    toggleBoxes();
 
 </script>
 

@@ -36,11 +36,15 @@ body {
 
 }
 
-
 .center-box > .footer-info {
     position: fixed;
     bottom: 10px;
     font-size: 0.7em;
     right: 0;
     left: 0;
+}
+
+.box-toggle:hover{
+    text-decoration: underline;
+    cursor: pointer;
 }

@@ -68,8 +68,10 @@
         <h4>Enter your E-Mail to reset access to your account</h4>
 
         <form>
-
-            <input type="email" name="email">
+            <div class="form-elem">
+                <label for="pwlost-mail">E-Mail</label>
+                <input type="email" name="email" id="pwlost-mail">
+            </div>
             <button type="submit">request</button>
 
         </form>
@@ -103,7 +105,7 @@
 
 <script>
 
-    var loginBox = document.getElementById("login")
+    var loginBox = document.getElementById("login");
     var registerBox = document.getElementById("register");
     var lostPwBox = document.getElementById("pwlost");
     var allAbout = document.getElementById("allabout");

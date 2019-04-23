@@ -14,12 +14,13 @@ body {
     background-size: cover;
     background-color: #464646;
     overflow: hidden;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .center-box {
     width: 30%;
     height: 340px;
-    background-color: rgba(255,255,255,0.6);
+    background-color: rgba(255, 255, 255, 0.6);
 
     position: fixed;
     top: 35%;
@@ -30,19 +31,16 @@ body {
     border-radius: 5px;
 
     padding: 20px;
+
+    text-align: center;
+
 }
 
-.center-box > h2 {
-    font-family: 'Press Start 2P', cursive;
-    text-align: center;
-}
 
 .center-box > .footer-info {
     position: fixed;
     bottom: 10px;
-    font-family: 'Press Start 2P', cursive;
     font-size: 0.7em;
-    text-align: center;
     right: 0;
     left: 0;
 }

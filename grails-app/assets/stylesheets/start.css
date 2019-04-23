@@ -36,6 +36,10 @@ body {
 
 }
 
+.form-elem{
+    display: block;
+}
+
 .center-box > .footer-info {
     position: fixed;
     bottom: 10px;

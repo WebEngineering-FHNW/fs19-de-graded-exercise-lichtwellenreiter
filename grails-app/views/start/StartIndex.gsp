@@ -22,19 +22,27 @@
         <h2>Dungeons'n'Credits</h2>
         <h4>Login to your journey</h4>
 
-        <form>
-            <label for="email">Username</label>
-            <input id="email" name="email" type="email">
+        <form method="post">
+            <div class="form-elem">
+                <label for="email">Username</label>
+                <input id="email" name="email" type="email">
+            </div>
 
-            <label for="password">Password</label>
-            <input id="password" name="password" type="password">
+            <div class="form-elem">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password">
+            </div>
 
-            <button class="btn btn-block" type="submit">login</button>
+            <div class="form-elem">
+                <button type="submit">login</button>
+            </div>
         </form>
 
         <div class="footer-info">
             <p class="box-toggle" onclick="toggleBoxes('register')">need an account?</p>
+
             <p class="box-toggle" onclick="toggleBoxes('pwlost')">lost password?</p>
+
             <p class="box-toggle" onclick="toggleBoxes('allabout')">What is it all about?</p>
         </div>
     </section>
@@ -50,6 +58,7 @@
 
         <div class="footer-info">
             <p class="box-toggle" onclick="toggleBoxes()">already got an account?</p>
+
             <p class="box-toggle" onclick="toggleBoxes('allabout')">What is it all about?</p>
         </div>
     </section>
@@ -67,6 +76,7 @@
 
         <div class="footer-info">
             <p class="box-toggle" onclick="toggleBoxes()">nevermind! go back.</p>
+
             <p class="box-toggle" onclick="toggleBoxes('allabout')">What is it all about?</p>
         </div>
     </section>
@@ -77,6 +87,10 @@
 
         <p>
             This is a gamification of the module Path at the FHNW BSc Computer Science. It is part of the webec Module.
+        </p>
+
+        <p>
+            Login with student/student
         </p>
 
 

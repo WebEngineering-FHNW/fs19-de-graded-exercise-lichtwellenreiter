@@ -105,10 +105,10 @@
 
 <script>
 
-    var loginBox = document.getElementById("login");
-    var registerBox = document.getElementById("register");
-    var lostPwBox = document.getElementById("pwlost");
-    var allAbout = document.getElementById("allabout");
+    let loginBox = document.getElementById("login");
+    let registerBox = document.getElementById("register");
+    let lostPwBox = document.getElementById("pwlost");
+    let allAbout = document.getElementById("allabout");
 
     function toggleBoxes(requestBox) {
 

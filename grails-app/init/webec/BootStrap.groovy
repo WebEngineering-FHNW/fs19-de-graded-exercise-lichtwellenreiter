@@ -4,6 +4,9 @@ class BootStrap {
 
     def init = { servletContext ->
 
+        /**
+         * Add User and Roles
+         */
         SecRole adminRole = save(SecRole.findOrCreateWhere(authority: SecRole.ADMIN))
         SecRole studentRole = save(SecRole.findOrCreateWhere(authority: SecRole.STUDENT))
         SecRole guestRole = save(SecRole.findOrCreateWhere(authority: SecRole.GUEST))
@@ -21,6 +24,19 @@ class BootStrap {
         assert SecRole.count()          == 3
         assert SecUser.count()          == 3
         assert SecUserSecRole.count()   == 3
+
+
+        /**
+         * Add Map Data
+         */
+
+        save(World.findOrCreateWhere(worldname: "Starter", enabled: true))
+        save(World.findOrCreateWhere(worldname: "Becoming Expert", enabled: true))
+        save(World.findOrCreateWhere(worldname: "Context", enabled: true))
+        save(World.findOrCreateWhere(worldname: "Project", enabled: true))
+
+        assert World.count() == 4
+
     }
 
     static save(domainObject) {

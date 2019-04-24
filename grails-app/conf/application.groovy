@@ -1,12 +1,16 @@
-
+import webec.SecRole
 
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'webec.SecUser'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'webec.SecUserSecRole'
 grails.plugin.springsecurity.authority.className = 'webec.SecRole'
-grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+
+grails.plugin.springsecurity.logout.postOnly = false
+
+grails.plugin.springsecurity.securityConfigType = 'InterceptUrlMap'
+
+final statics = [
 	[pattern: '/',               access: ['permitAll']],
-	[pattern: '/dbconsole/**',   access: ['permitAll']], //access to h2 database console
 	[pattern: '/error',          access: ['permitAll']],
 	[pattern: '/index',          access: ['permitAll']],
 	[pattern: '/index.gsp',      access: ['permitAll']],
@@ -18,7 +22,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/**/favicon.ico', access: ['permitAll']]
 ]
 
-grails.plugin.springsecurity.filterChain.chainMap = [
+final chainMap = [
 	[pattern: '/assets/**',      filters: 'none'],
 	[pattern: '/**/js/**',       filters: 'none'],
 	[pattern: '/**/css/**',      filters: 'none'],
@@ -27,3 +31,13 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 	[pattern: '/**',             filters: 'JOINED_FILTERS']
 ]
 
+final interceptUrlMap = statics + [
+		[pattern: "/login/auth",    access: ["permitAll"]],
+		[pattern: "/dbconsole/**" , access: ['ROLE_ADMIN']], // allow Admin Only to access DBConsole
+		[pattern: "/**"        ,    access: ['ROLE_ADMIN', 'ROLE_STUDENT', 'ROLE_GUEST']],
+]
+
+
+grails.plugin.springsecurity.controllerAnnotations.staticRules = statics
+grails.plugin.springsecurity.filterChain.chainMap = chainMap
+grails.plugin.springsecurity.interceptUrlMap = interceptUrlMap

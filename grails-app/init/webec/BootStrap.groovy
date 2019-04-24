@@ -16,10 +16,15 @@ class BootStrap {
         SecUserSecRole.create(admin, adminRole, true)
         SecUserSecRole.create(student, studentRole, true)
         SecUserSecRole.create(guest, guestRole, true)
+
+        // Assertions
+        assert SecRole.count()          == 3
+        assert SecUser.count()          == 3
+        assert SecUserSecRole.count()   == 3
     }
 
     static save(domainObject) {
-        domainObject.save(failOnError: true, flush:true)
+        domainObject.save(failOnError: true, flush: true)
     }
 
     def destroy = {

@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Dungeons'n'Credits</title>
-    <asset:stylesheet src="start.css"/>
+    <asset:stylesheet src="login.css"/>
 </head>
 
 <body>
@@ -25,12 +25,12 @@
         <form action="/login/authenticate" method="POST" id="loginForm" autocomplete="off">
             <div class="form-elem">
                 <label for="username">Username</label>
-                <input type="text" class="text_" name="username" id="username" placeholder="guest"/>
+                <input type="text" class="text_" name="username" id="username"/>
             </div>
 
             <div class="form-elem">
                 <label for="password">Password</label>
-                <input type="password" class="text_" name="password" id="password" placeholder="guest"/>
+                <input type="password" class="text_" name="password" id="password"/>
             </div>
 
             <div class="form-elem">

@@ -1,5 +1,3 @@
-import webec.SecRole
-
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'webec.SecUser'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'webec.SecUserSecRole'

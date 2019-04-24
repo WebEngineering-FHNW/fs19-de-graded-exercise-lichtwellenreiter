@@ -8,7 +8,6 @@ grails.plugin.springsecurity.logout.postOnly = false
 grails.plugin.springsecurity.securityConfigType = 'InterceptUrlMap'
 
 final statics = [
-	[pattern: '/',               access: ['permitAll']],
 	[pattern: '/error',          access: ['permitAll']],
 	[pattern: '/index',          access: ['permitAll']],
 	[pattern: '/index.gsp',      access: ['permitAll']],
@@ -31,8 +30,9 @@ final chainMap = [
 
 final interceptUrlMap = statics + [
 		[pattern: "/login/auth",    access: ["permitAll"]],
-		[pattern: "/dbconsole/**" , access: ['ROLE_ADMIN']], // allow Admin Only to access DBConsole
-		[pattern: "/**"        ,    access: ['ROLE_ADMIN', 'ROLE_STUDENT', 'ROLE_GUEST']],
+		[pattern: "/dbconsole/**", 	access: ['ROLE_ADMIN']], // allow Admin Only to access DBConsole
+		[pattern: "/map/**",    	access: ['ROLE_ADMIN', 'ROLE_STUDENT']],
+		[pattern: "/**",    		access: ['ROLE_ADMIN', 'ROLE_STUDENT']],
 ]
 
 

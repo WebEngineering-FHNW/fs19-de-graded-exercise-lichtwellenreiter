@@ -13,15 +13,26 @@
     <title>Dungeons'n'Credits</title>
     <asset:stylesheet src="map.css"/>
 </head>
+
 <body>
 
 <main>
     <section class="stat-bar">
-        <span>Mouse X: <span id="mousex">??</span></span> <span>Y: <span id="mousey">??</span></span><br/>
-        <span>Scroll X: <span id="scrollx">??</span></span> <span>Y: <span id="scrolly">??</span></span>
+        <div class="stat-left">
+            Player //need currentLoggedinUser
+        </div>
+        <div class="stat-right">
+            <a href="${createLink(uri: '/logout')}">logout</a>
+        </div>
     </section>
+
     <section class="main-map">
         <canvas id="cvs"></canvas>
+    </section>
+
+    <section class="footer-bar">
+        <div class="footer-text">Mouse X: <span id="mousex">??</span> Y: <span id="mousey">??</span></div>
+        <div class="footer-text">Scroll X: <span id="scrollx">??</span> Y: <span id="scrolly">??</span></div>
     </section>
 </main>
 <asset:javascript src="map.js"/>

@@ -2,10 +2,10 @@
 <html>
     <head>
         <title><g:if env="development">Grails Runtime Exception</g:if><g:else>Error</g:else></title>
-        <meta name="layout" content="main">
-        <g:if env="development"><asset:stylesheet src="errors.css"/></g:if>
+        <asset:stylesheet src="error.css"/>
     </head>
     <body>
+    <div class="error-box-wide">
         <g:if env="development">
             <g:if test="${Throwable.isInstance(exception)}">
                 <g:renderException exception="${exception}" />
@@ -23,9 +23,14 @@
             </g:else>
         </g:if>
         <g:else>
-            <ul class="errors">
-                <li>An error has occurred</li>
-            </ul>
+            <div class="error-box">
+                <h1>Error :/</h1>
+                <h4>An Error has occured</h4>
+                <div class="footer-info">
+                    <a href="${createLink(uri: '/')}">back to start</a>
+                </div>
+            </div>
         </g:else>
+    </div>
     </body>
 </html>

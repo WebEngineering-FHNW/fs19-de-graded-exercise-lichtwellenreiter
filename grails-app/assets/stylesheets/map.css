@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+
 html, body{
     width: 100%;
     height: 100%;
@@ -7,6 +9,7 @@ html, body{
 
 body{
     background-color:  #95afc0;
+    font-family: "Press Start 2P", cursive;
 }
 
 .stat-bar{
@@ -15,9 +18,35 @@ body{
     width: 100%;
     background-color: #535c68;
     margin:0;
+    color: #ecf0f1;
+}
+
+.stat-right{
+    float: right;
+    margin-right: 20px;
+}
+
+a:visited{
+    color:#ecf0f1;
 }
 
 .main-map{
     width: 100%;
     height: 100%;
+}
+
+.footer-bar{
+    position: fixed;
+    height: 20px;
+    width: 100%;
+    bottom: 0;
+    color: #ecf0f1;
+    background-color: #000000;
+    margin:0;
+    padding: auto;
+    font-size: 0.5em;
+}
+.footer-text{
+    display: inline;
+    margin-right: 50px;
 }

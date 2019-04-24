@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+
+body {
+    background-image: url("../images/error-bg.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #464646;
+    overflow: hidden;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.error-box {
+    width: 30%;
+    height: 340px;
+    background-color: rgba(255, 255, 255, 0.6);
+    position: fixed;
+    top: 35%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+
+}
+.error-box-wide {
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.6);
+    margin: auto;
+    top: 50px;
+    left: 50%;
+    transform: translate(-50%);
+    width: 70%;
+    height: 80%;
+    text-align: left;
+    overflow: scroll;
+    padding: 20px;
+}
+
+.footer-info {
+    position: fixed;
+    bottom: 10px;
+    font-size: 0.7em;
+    right: 0;
+    left: 0;
+}

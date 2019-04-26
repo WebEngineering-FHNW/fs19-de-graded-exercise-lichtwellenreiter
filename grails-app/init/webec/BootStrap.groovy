@@ -13,7 +13,7 @@ class BootStrap {
 
 
         SecUser admin = save(new SecUser(username: 'admin', password: 'admin'))
-        SecUser student = save(new SecUser(username: 'student@students.fhnw.ch', password: 'student'))
+        SecUser student = save(new SecUser(username: 'student', password: 'student'))
         SecUser guest = save(new SecUser(username: 'guest', password: 'guest'))
 
         SecUserSecRole.create(admin, adminRole, true)

@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 
+:root{
+    --input-border-color: #C5C5C5;
+    --input-border-right-color: #8B8B8B;
+    --input-border-bottom-color: #8B8B8B;
+    --pixel-font: 'Press Start 2P', cursive;
+}
+
 
 html, body {
     height: 100%;
@@ -7,19 +14,20 @@ html, body {
 }
 
 body {
-    background-image: url("../images/login-bg.png");
+    background-image: url("../images/dnc/login-bg.png");
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
     background-color: #464646;
     overflow: hidden;
-    font-family: 'Press Start 2P', cursive;
+    font-family: var(--pixel-font);
 }
 
 .center-box {
-    width: 30%;
-    height: 340px;
+    min-width: 612px;
+    height: 40vh;
+    min-height: 385px;
     background-color: rgba(255, 255, 255, 0.6);
 
     position: fixed;
@@ -27,17 +35,63 @@ body {
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    border: 5px solid gold;
-    border-radius: 5px;
-
-    padding: 20px;
-
+    border: 5px solid #FFD700;
+    border-right-color: #CCAC00;
+    border-bottom-color: #CCAC00;
     text-align: center;
-
 }
 
+.form-outer{
+    width:90%;
+    margin: auto;
+}
 .form-elem{
     display: block;
+    margin: 10px;
+}
+
+.form-elem-sm{
+    font-size: .7em;
+}
+
+.form-elem-button{
+    display: block;
+    margin: 10px;
+    padding: 0 25px;
+}
+
+label{
+    display: inline-block;
+    width: 180px;
+    text-align: left;
+}
+
+input[type='text'], input[type='password'], input[type='email']{
+
+    border: 3px solid var(--input-border-color);
+    border-right-color:  var(--input-border-right-color);
+    border-bottom-color: var(--input-border-bottom-color);
+    padding: 5px;
+    font-size: 0.9em;
+    font-family: var(--pixel-font);
+    color: #626262;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    width: 16px;
+    height: 16px;
+    background-color: #ffffff;
+    border: 3px solid var(--input-border-color);
+    border-right-color:  var(--input-border-right-color);
+    border-bottom-color: var(--input-border-bottom-color);
+}
+
+input[type="checkbox"]:checked {
+    background-color: #909090;
 }
 
 .center-box > .footer-info {
@@ -51,4 +105,18 @@ body {
 .box-toggle:hover{
     text-decoration: underline;
     cursor: pointer;
+}
+
+.button{
+    display: inline-block;
+    padding: 10px 20px;
+    font-family: var(--pixel-font);
+    border: 3px solid var(--input-border-color);
+    border-right-color:  var(--input-border-right-color);
+    border-bottom-color: var(--input-border-bottom-color);
+    background-color: #f0f0f0;
+}
+
+.button:hover{
+    background-color:  #d8d8d8;
 }

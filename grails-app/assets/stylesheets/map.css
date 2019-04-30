@@ -12,19 +12,29 @@ body{
     font-family: "Press Start 2P", cursive;
 }
 
+
 .stat-bar{
     position: fixed;
     height: 60px;
     width: 100%;
     background-color: #535c68;
     margin:0;
-    color: #ecf0f1;
+
+    grid-gap: 0;
+    display: grid;
+    grid-template-columns: 33.333333% 33.33333% 33.33333%;
+}
+
+.stat-left, .stat-center, .stat-right{
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
 }
 
 .stat-right{
-    float: right;
-    margin-right: 20px;
+    justify-self: end;
 }
+
 
 a:visited{
     color:#ecf0f1;

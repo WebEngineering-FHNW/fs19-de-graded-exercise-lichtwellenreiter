@@ -21,9 +21,9 @@ class BootStrap {
         SecUserSecRole.create(guest, guestRole, true)
 
         // Assertions
-        assert SecRole.count()          == 3
-        assert SecUser.count()          == 3
-        assert SecUserSecRole.count()   == 3
+        assert SecRole.count() == 3
+        assert SecUser.count() == 3
+        assert SecUserSecRole.count() == 3
 
 
         /**
@@ -36,6 +36,22 @@ class BootStrap {
         save(World.findOrCreateWhere(worldname: "Project", enabled: true))
 
         assert World.count() == 4
+
+
+        /**
+         * Add Module Data
+         */
+
+        save(Module.findOrCreateWhere(name: "Objectoriented Programming 1",     abbreviation: "oop1",   msp: true, credits: 3))
+        save(Module.findOrCreateWhere(name: "Objectoriented Programming 2",     abbreviation: "oop2",   msp: true, credits: 3))
+        save(Module.findOrCreateWhere(name: "Algorithms and Datastructures 1",  abbreviation: "algd1",  msp: true, credits: 3))
+        save(Module.findOrCreateWhere(name: "Algorithms and Datastructures 2",  abbreviation: "algd2",  msp: true, credits: 3))
+        save(Module.findOrCreateWhere(name: "C++ Programming",                  abbreviation: "prcpp",  msp: true, credits: 3))
+        save(Module.findOrCreateWhere(name: "Compiler Build",                   abbreviation: "cpib",   msp: true, credits: 3))
+        save(Module.findOrCreateWhere(name: "Concurrent Programming",           abbreviation: "conpr",  msp: true, credits: 3))
+        save(Module.findOrCreateWhere(name: "Functional Programming",           abbreviation: "fprog",  msp: true, credits: 3))
+
+        assert Module.count() == 8
 
     }
 

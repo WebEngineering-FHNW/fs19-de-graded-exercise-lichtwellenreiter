@@ -6,7 +6,8 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,24 +23,24 @@
         <h2>Dungeons'n'Credits</h2>
         <h4>Login to your journey</h4>
 
-        <form action="/login/authenticate" method="POST" id="loginForm" autocomplete="off">
+        <form action="/login/authenticate" method="POST" id="loginForm" autocomplete="off" class="form-outer">
             <div class="form-elem">
-                <label for="username">Username</label>
-                <input type="text" class="text_" name="username" id="username"/>
+                <label for="login-username">Username</label>
+                <input type="text" class="text_" name="username" id="login-username"/>
             </div>
 
             <div class="form-elem">
-                <label for="password">Password</label>
-                <input type="password" class="text_" name="password" id="password"/>
+                <label for="login-password">Password</label>
+                <input type="password" class="text_" name="password" id="login-password"/>
             </div>
 
-            <div class="form-elem">
+            <div class="form-elem form-elem-sm">
                 <input type="checkbox" class="chk" name="remember-me" id="remember_me"/>
-                <label for="remember_me">Angemeldet bleiben</label>
+                <label for="remember_me">Stay loggedin</label>
             </div>
 
-            <div class="form-elem">
-                <button type="submit" id="submit">login</button>
+            <div class="form-elem form-button">
+                <button type="submit" class="button" id="submit">login</button>
             </div>
         </form>
 
@@ -57,8 +58,26 @@
         <h2>Dungeons'n'Credits</h2>
         <h4>Register to start the journey</h4>
 
-        <form>
+        <form action="/user/register" method="POST" id="registerForm" autocomplete="off" class="form-outer">
+            <div class="form-elem">
+                <label for="register-username">Username</label>
+                <input type="text" class="text_" name="username" id="register-username"/>
+            </div>
 
+            <div class="form-elem">
+                <label for="register-password">Password</label>
+                <input type="password" class="text_" name="password" id="register-password" required/>
+            </div>
+
+            <div class="form-elem">
+                <label for="register-password-confirmation">Password Confirmation</label>
+                <input type="password" class="text_" name="passwordConfirmation" id="register-password-confirmation"
+                       required/>
+            </div>
+
+            <div class="form-elem form-button">
+                <button type="submit" class="button" id="registerButton">register</button>
+            </div>
         </form>
 
         <div class="footer-info">
@@ -72,12 +91,12 @@
         <h2>Dungeons'n'Credits</h2>
         <h4>Enter your E-Mail to reset access to your account</h4>
 
-        <form>
+        <form class="form-outer">
             <div class="form-elem">
                 <label for="pwlost-mail">E-Mail</label>
                 <input type="email" name="email" id="pwlost-mail">
             </div>
-            <button type="submit">request</button>
+            <button type="submit" class="button button-light">request password</button>
 
         </form>
 
@@ -123,29 +142,47 @@
                 registerBox.style.visibility = 'visible';
                 lostPwBox.style.visibility = 'hidden';
                 allAbout.style.visibility = 'hidden';
+                localStorage.setItem('lastPage', 'register');
                 break;
             case 'pwlost':
                 loginBox.style.visibility = 'hidden';
                 registerBox.style.visibility = 'hidden';
                 lostPwBox.style.visibility = 'visible';
                 allAbout.style.visibility = 'hidden';
+                localStorage.setItem('lastPage', 'pwlost');
                 break;
             case 'allabout':
                 loginBox.style.visibility = 'hidden';
                 registerBox.style.visibility = 'hidden';
                 lostPwBox.style.visibility = 'hidden';
                 allAbout.style.visibility = 'visible';
+                localStorage.setItem('lastPage', '');
                 break;
             default:
                 loginBox.style.visibility = 'visible';
                 registerBox.style.visibility = 'hidden';
                 lostPwBox.style.visibility = 'hidden';
                 allAbout.style.visibility = 'hidden';
+                localStorage.setItem('lastPage', '');
                 break;
         }
     }
 
-    toggleBoxes();
+    toggleBoxes(localStorage.getItem('lastPage'));
+
+
+
+    let password = document.getElementById("register-password"), confirm_password = document.getElementById("register-password-confirmation");
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
 
 </script>
 

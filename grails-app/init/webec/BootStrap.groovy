@@ -29,7 +29,6 @@ class BootStrap {
         /**
          * Add Map Data
          */
-
         save(World.findOrCreateWhere(worldname: "Starter", enabled: true))
         save(World.findOrCreateWhere(worldname: "Becoming Expert", enabled: true))
         save(World.findOrCreateWhere(worldname: "Context", enabled: true))
@@ -41,7 +40,6 @@ class BootStrap {
         /**
          * Add Module Data
          */
-
         save(Module.findOrCreateWhere(name: "Objectoriented Programming 1",     abbreviation: "oop1",   msp: true, credits: 3))
         save(Module.findOrCreateWhere(name: "Objectoriented Programming 2",     abbreviation: "oop2",   msp: true, credits: 3))
         save(Module.findOrCreateWhere(name: "Algorithms and Datastructures 1",  abbreviation: "algd1",  msp: true, credits: 3))

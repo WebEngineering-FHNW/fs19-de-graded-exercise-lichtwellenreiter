@@ -66,8 +66,13 @@ a:visited{
     margin:0;
     padding: auto;
     font-size: 0.5em;
+
+    grid-gap: 0;
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
 }
 .footer-text{
-    display: inline;
-    margin-right: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
 }

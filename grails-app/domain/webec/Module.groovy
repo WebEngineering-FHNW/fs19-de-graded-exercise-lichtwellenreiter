@@ -1,5 +1,8 @@
 package webec
 
+import grails.rest.Resource
+
+@Resource(uri='/modules', formats=['json'])
 class Module {
 
     int id
@@ -13,3 +16,7 @@ class Module {
         credits range: 1..12
     }
 }
+
+
+
+

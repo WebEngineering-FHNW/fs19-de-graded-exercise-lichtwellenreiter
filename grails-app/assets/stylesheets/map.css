@@ -5,6 +5,7 @@ html, body{
     height: 100%;
     padding: 0;
     margin: 0;
+    overflow: hidden;
 }
 
 body{
@@ -21,7 +22,6 @@ a:visited{
     STATUS BAR aka MENU
 \** --------------------------------------------------------------------------------------------------------------- **/
 .stat-bar{
-    position: fixed;
     height: 60px;
     width: 100%;
     background-color: #535c68;
@@ -38,10 +38,27 @@ a:visited{
     padding: 0 5px;
 }
 
+.stat-center{
+    justify-self: center;
+    align-self: normal;
+}
+
+.keyring li{
+    display: inline-block;
+    font-size: 0.6em;
+}
+.keyname{
+    margin-bottom: 5px;
+}
+
+.keyplace{
+    width: 50px;
+    display: block;
+}
+
 .stat-right{
     justify-self: end;
 }
-
 /** --------------------------------------------------------------------------------------------------------------- **\
     MAIN CONTENT
 \** --------------------------------------------------------------------------------------------------------------- **/
@@ -49,6 +66,15 @@ a:visited{
 .main-map{
     width: 100%;
     height: 100%;
+    overflow: scroll;
+}
+
+#map{
+    z-index: 1;
+}
+
+#character{
+    z-index: 5;
 }
 
 /** --------------------------------------------------------------------------------------------------------------- **\

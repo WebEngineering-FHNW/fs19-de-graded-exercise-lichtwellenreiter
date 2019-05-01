@@ -1,4 +1,4 @@
-mapCanvas.onmousemove = function (e) {
+mapCanvasLayer1.onmousemove = function (e) {
 
     var mouseX, mouseY;
 
@@ -16,7 +16,7 @@ mapCanvas.onmousemove = function (e) {
 
 };
 
-mapCanvas.onmouseleave = function (e) {
+mapCanvasLayer1.onmouseleave = function (e) {
     document.getElementById("mousex").innerHTML = "???";
     document.getElementById("mousey").innerHTML = "???";
 
@@ -28,19 +28,22 @@ mapContainer.onscroll = function (e) {
 };
 
 
-mapContainer.onkeydown = function (e) {
-
-    console.log("key:" + e.key);
-
-    character.oldpos.x = character.x;
-    character.oldpos.y = character.y;
+window.onkeydown = function (e) {
 
     switch (e.key) {
         case 'ArrowUp':
-            character.y -= character.step;
+
+            if (character.y !== 0) {
+                character.y -= character.step;
+            }
+
             break;
         case 'ArrowLeft':
-            character.x -= character.step;
+
+            if (character.x !== 0) {
+                character.x -= character.step;
+            }
+
             break;
         case 'ArrowRight':
             character.x += character.step;

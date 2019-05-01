@@ -12,33 +12,22 @@ let ch = bh + p + 1;
 let tileW = 40;
 let tileH = 40;
 
-let tiles = [
-    "floor_1",
-    "floor_2",
-    "floor_3",
-    "floor_4",
-    "floor_5",
-    "floor_6",
-    "floor_7",
-    "floor_8",
-];
-
 
 let showGrid = 0;
 let hover = false, id;
 
-let mapCanvas = document.getElementById("map");
+let mapCanvasLayer1 = document.getElementById("mapLayer1");
 let mapContainer = document.getElementById("mapContainer");
 
-mapCanvas.width = cw;
-mapCanvas.height = ch;
+mapCanvasLayer1.width = cw;
+mapCanvasLayer1.height = ch;
 
 //mapContainer.scrollTo(map.width / 2, map.height / 2);
 
 mapContainer.scrollTo(mapContainer.left + mapContainer.width / 2, mapContainer.top + mapContainer.height / 2);
 
 
-let context = mapCanvas.getContext("2d");
+let layer1 = mapCanvasLayer1.getContext("2d");
 
 
 let nodes = [
@@ -75,37 +64,7 @@ let nodes = [
 ];
 
 let backgroundTiles = [];
-let character;
 
-
-function Character(x, y, step) {
-    this.x = x;
-    this.y = y;
-    this.step = step;
-    this.velocity = 0.05;
-    this.oldpos = {x: x, y: y};
-    this.image = new Image();
-    this.image.src = "/assets/dnc/characters/ogre.png";
-
-    this.bgimg = new Image();
-
-
-    this.update = function () {
-
-
-        let oldTile = findTileForPosition(this.oldpos.x / tileW, this.oldpos.y / tileH);
-
-        console.log(oldTile);
-
-        this.bgimg.src = "/assets/dnc/floor/floor_" + oldTile[0].tile + ".png";
-
-        console.log(this.bgimg.src);
-
-        context.drawImage(this.bgimg, this.oldpos.x, this.oldpos.y, tileW, tileW);
-
-        context.drawImage(this.image, this.x, this.y, tileW, tileW);
-    }
-}
 
 
 getColorIndicesForCoord = (x, y, width) => {
@@ -122,34 +81,22 @@ function drawGrid() {
     if (1 === showGrid) {
 
         for (let x = 0; x <= bw; x += tileW) {
-            context.moveTo(0.5 + x + p, p);
-            context.lineTo(0.5 + x + p, bh + p);
+            layer1.moveTo(0.5 + x + p, p);
+            layer1.lineTo(0.5 + x + p, bh + p);
         }
 
 
         for (let x = 0; x <= bh; x += tileH) {
-            context.moveTo(p, 0.5 + x + p);
-            context.lineTo(bw + p, 0.5 + x + p);
+            layer1.moveTo(p, 0.5 + x + p);
+            layer1.lineTo(bw + p, 0.5 + x + p);
         }
 
-        context.lineWidth = 1;
-        context.strokeStyle = "black";
-        context.stroke();
+        layer1.lineWidth = 1;
+        layer1.strokeStyle = "black";
+        layer1.stroke();
     }
 
     document.getElementById("numTiles").innerText = ((bw / tileW) * (bh / tileH)).toString();
-}
-
-
-function drawCharacter() {
-
-    let xCenter = findX(parseInt(((bw / tileW) / 2).toString()));
-    let yCenter = findY(parseInt(((bh / tileH) / 2).toString()));
-
-    console.log(typeof xCenter);
-
-    character = new Character(xCenter, yCenter, 40);
-    character.update();
 }
 
 
@@ -167,7 +114,7 @@ function drawBackground() {
             let image = new Image();
             let randTile = Math.floor(Math.random() * 8 + 1);
             image.src = "/assets/dnc/floor/floor_" + randTile + ".png";
-            context.drawImage(image, findX(i), findY(j), tileW, tileH);
+            layer1.drawImage(image, getXCoord(i), getYCoord(j), tileW, tileH);
 
             let bgTile = {
                 "x": i,
@@ -180,7 +127,7 @@ function drawBackground() {
         }
     }
 
-    console.log(backgroundTiles);
+    //console.log(backgroundTiles);
 }
 
 
@@ -200,31 +147,15 @@ function findTileForPosition(x, y) {
  * @param index
  */
 function drawNode(item, index) {
-    let x = findX(item.x)
-    let y = findY(item.y)
+    let x = getXCoord(item.x)
+    let y = getYCoord(item.y)
 
     let image = new Image();
     image.src = "/assets/dnc/node/wall_banner_yellow.png";
-    context.drawImage(image, x, y, tileW, tileH);
+    layer1.drawImage(image, x, y, tileW, tileH);
 }
 
-/**
- * Calculate X Coord
- * @param x
- * @returns {number}
- */
-function findX(x) {
-    return x * tileW
-}
 
-/**
- * Calculate Y Coord
- * @param y
- * @returns {number}
- */
-function findY(y) {
-    return y * tileH
-}
 
 /**
  * Draw Edge between two Nodes
@@ -233,12 +164,12 @@ function findY(y) {
  */
 function drawEdgeBetweenNodes(n1, n2) {
 
-    context.moveTo(findX(n1.x) + (0.5 * tileW), findY(n1.y) + (tileH));
-    context.lineTo(findX(n1.x) + (0.5 * tileW), findY(n2.y) + (0.5 * tileH));
-    context.lineTo(findX(n2.x) + (0.5 * tileW), findY(n2.y) + (0.5 * tileH));
+    layer1.moveTo(getXCoord(n1.x) + (0.5 * tileW), getYCoord(n1.y) + (tileH));
+    layer1.lineTo(getXCoord(n1.x) + (0.5 * tileW), getYCoord(n2.y) + (0.5 * tileH));
+    layer1.lineTo(getXCoord(n2.x) + (0.5 * tileW), getYCoord(n2.y) + (0.5 * tileH));
 
-    context.strokeStyle = "black";
-    context.stroke();
+    layer1.strokeStyle = "black";
+    layer1.stroke();
 }
 
 /**
@@ -257,14 +188,14 @@ function drawEdges(node, index) {
 
             let nnode = getNodeForName(node.edge[i]);
 
-            context.moveTo(node.x + centerW, node.y + centerH);
-            context.lineTo(node.x + centerW, nnode.y + centerH);
-            context.lineTo(nnode.x + centerW, nnode.y + centerH);
+            layer1.moveTo(node.x + centerW, node.y + centerH);
+            layer1.lineTo(node.x + centerW, nnode.y + centerH);
+            layer1.lineTo(nnode.x + centerW, nnode.y + centerH);
 
-            context.strokeStyle = "black";
-            context.lineWidth = 2;
-            context.stroke();
-            context.lineWidth = 1;
+            layer1.strokeStyle = "black";
+            layer1.lineWidth = 2;
+            layer1.stroke();
+            layer1.lineWidth = 1;
         }
     }
 }
@@ -283,19 +214,12 @@ function getNodeForName(name) {
 }
 
 
-// Animation Loop
-function animate() {
-    requestAnimationFrame(animate)
-    character.update()
-}
-
 /**
  * Initialize Map
  */
 
 drawGrid();
 drawBackground();
-drawCharacter();
 
 
 nodes.forEach(drawNode);
@@ -307,4 +231,3 @@ drawEdgeBetweenNodes(nodes[1], nodes[2]);
 drawEdgeBetweenNodes(nodes[1], nodes[3]);
 drawEdgeBetweenNodes(nodes[1], nodes[4]);
 
-animate();

@@ -42,8 +42,8 @@
         </div>
     </section>
     <section class="main-map" id="mapContainer">
-        <canvas id="map"></canvas>
-        <asset:image src="dnc/characters/ogre.png" id="character" />
+        <canvas id="mapLayer1"></canvas>
+        <canvas id="mapLayer2"></canvas>
     </section>
     <section class="footer-bar">
         <div class="footer-text">Mouse X: <span id="mousex">??</span> Y: <span id="mousey">??</span></div>
@@ -69,8 +69,9 @@
 <asset:image src="dnc/node/wall_banner_red.png" style="display:none"/>
 <asset:image src="dnc/node/wall_banner_yellow.png" style="display:none"/>
 
+<asset:javascript src="map-helper.js"/>
 <asset:javascript src="map.js"/>
-<asset:javascript src="map-listener.js"/>
 <asset:javascript src="map-character.js"/>
+<asset:javascript src="map-listener.js"/>
 </body>
 </html>

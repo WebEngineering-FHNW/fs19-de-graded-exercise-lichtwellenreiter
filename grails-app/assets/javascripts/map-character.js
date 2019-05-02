@@ -6,7 +6,7 @@ mapCanvasLayer2.width = cw;
 mapCanvasLayer2.height = ch;
 
 
-let startNode = getNodeForName("node0");
+let startNode = getNodeForName("start");
 let character = new Character(getXCoord(startNode.x), getYCoord(startNode.y) - 3, 40);
 
 

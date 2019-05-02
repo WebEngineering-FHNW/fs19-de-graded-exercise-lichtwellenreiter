@@ -32,6 +32,15 @@ let layer1 = mapCanvasLayer1.getContext("2d");
 
 let nodes = [
     {
+        "name": "start",
+        "abbr": "start",
+        "namelong": "start",
+        "description": "-",
+        "x": 16,
+        "y": 5,
+        "edge": ["node0"]
+    },
+    {
         "name": "node0",
         "abbr": "oop1",
         "namelong": "Objectoriented Programming 1",
@@ -261,8 +270,9 @@ drawBackground();
 //Todo remove this with upper line ...
 drawEdgeBetweenNodes(nodes[0], nodes[1]);
 drawEdgeBetweenNodes(nodes[1], nodes[2]);
-drawEdgeBetweenNodes(nodes[1], nodes[3]);
-drawEdgeBetweenNodes(nodes[1], nodes[4]);
+drawEdgeBetweenNodes(nodes[2], nodes[3]);
+drawEdgeBetweenNodes(nodes[2], nodes[4]);
+drawEdgeBetweenNodes(nodes[2], nodes[5]);
 
 nodes.forEach(drawNode);
 setPathTiles();

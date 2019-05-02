@@ -76,7 +76,6 @@ window.onclick = function (event) {
 };
 
 
-
 help.onclick = function () {
     helpModal.style.display = "block";
     localStorage.setItem("modalOpen", "true");
@@ -113,9 +112,11 @@ function getNodeForCharacterPosition() {
         if (n.x === x && n.y === y) {
 
 
-            console.log("Character is on Node. Node: " + n.name);
-            localStorage.setItem('modalOpen', "true");
-            openNodeModal(n);
+            if (n.name !== "start") {
+                console.log("Character is on Node. Node: " + n.name);
+                localStorage.setItem('modalOpen', "true");
+                openNodeModal(n);
+            }
 
         }
     });

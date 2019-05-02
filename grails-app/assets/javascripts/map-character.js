@@ -6,10 +6,8 @@ mapCanvasLayer2.width = cw;
 mapCanvasLayer2.height = ch;
 
 
-let xCenter = getXCoord(parseInt(((bw / tileW) / 2).toString()));
-let yCenter = getYCoord(parseInt(((bh / tileH) / 2).toString()));
-
-let character = new Character(xCenter, yCenter, 40);
+let startNode = getNodeForName("node0");
+let character = new Character(getXCoord(startNode.x), getYCoord(startNode.y) - 3, 40);
 
 
 function Character(x, y, step) {

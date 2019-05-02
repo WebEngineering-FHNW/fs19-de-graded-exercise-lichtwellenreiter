@@ -33,30 +33,55 @@ let layer1 = mapCanvasLayer1.getContext("2d");
 let nodes = [
     {
         "name": "node0",
+        "abbr": "oop1",
+        "namelong": "Objectoriented Programming 1",
+        "description": "<p>In this course, students learn a typical object-oriented programming language, its options and potential.</p>" +
+            "<p>Course content:</p>" +
+            "<ul>"+
+            "<li>Repetitive procedural programming (primitive data types, control structures, functions and parameter transfer, reference types, multi-dimensional arrays)</li>" +
+            "<li>Classes and objects (constructors, initialization blocks, methods, attributes, method overloading, lists, encapsulation, copying and comparing), wrapper classes, strings and packages</li>" +
+            "<li>Object oriented prototype, introduction to UML</li>" +
+            "<li>Inheritance, polymorphy, final elements, access rights</li>" +
+            "<li>Abstract classes and interfaces</li>" +
+            "<li>Static inner classes and element classes</li>" +
+            "<li>Exception handling</li>"+
+            "</ul>",
         "x": 18,
-        "y": 10,
-        "edge": []
+        "y": 5,
+        "edge": ["node1"]
     },
     {
         "name": "node1",
+        "abbr": "-",
+        "namelong": "-",
+        "description": "-",
         "x": 20,
         "y": 9,
         "edge": ["node2", "node3"]
     },
     {
         "name": "node2",
+        "abbr": "-",
+        "namelong": "-",
+        "description": "-",
         "x": 15,
         "y": 11,
         "edge": []
     },
     {
         "name": "node3",
+        "abbr": "-",
+        "namelong": "-",
+        "description": "-",
         "x": 18,
         "y": 15,
         "edge": ["node1"]
     },
     {
         "name": "node4",
+        "abbr": "-",
+        "namelong": "-",
+        "description": "-",
         "x": 25,
         "y": 5,
         "edge": ["node1"]
@@ -64,7 +89,6 @@ let nodes = [
 ];
 
 let backgroundTiles = [];
-
 
 
 getColorIndicesForCoord = (x, y, width) => {
@@ -151,10 +175,9 @@ function drawNode(item, index) {
     let y = getYCoord(item.y)
 
     let image = new Image();
-    image.src = "/assets/dnc/node/wall_banner_yellow.png";
+    image.src = "/assets/dnc/node/node.png";
     layer1.drawImage(image, x, y, tileW, tileH);
 }
-
 
 
 /**
@@ -164,11 +187,13 @@ function drawNode(item, index) {
  */
 function drawEdgeBetweenNodes(n1, n2) {
 
-    layer1.moveTo(getXCoord(n1.x) + (0.5 * tileW), getYCoord(n1.y) + (tileH));
+
+    layer1.moveTo(getXCoord(n1.x) + (0.5 * tileW), getYCoord(n1.y) + (0.5 * tileH));
     layer1.lineTo(getXCoord(n1.x) + (0.5 * tileW), getYCoord(n2.y) + (0.5 * tileH));
     layer1.lineTo(getXCoord(n2.x) + (0.5 * tileW), getYCoord(n2.y) + (0.5 * tileH));
 
-    layer1.strokeStyle = "black";
+    layer1.strokeStyle = "#d6ac2a";
+    layer1.lineWidth = 10;
     layer1.stroke();
 }
 
@@ -206,13 +231,21 @@ function drawEdges(node, index) {
  * @returns {*[]}
  */
 function getNodeForName(name) {
-    return nodes.filter(n => {
-        if (n.name === name) {
-            return n;
-        }
-    });
+    return nodes.find( node => node.name === name );
 }
 
+
+let pathTiles;
+function setPathTiles() {
+
+    pathTiles = [];
+
+    nodes.forEach((item, index) => {
+
+        //console.log(item);
+    });
+
+}
 
 /**
  * Initialize Map
@@ -222,12 +255,14 @@ drawGrid();
 drawBackground();
 
 
-nodes.forEach(drawNode);
+//Todo implement this instead of each node under this...
 //nodes.forEach(drawEdges)
 
-
+//Todo remove this with upper line ...
 drawEdgeBetweenNodes(nodes[0], nodes[1]);
 drawEdgeBetweenNodes(nodes[1], nodes[2]);
 drawEdgeBetweenNodes(nodes[1], nodes[3]);
 drawEdgeBetweenNodes(nodes[1], nodes[4]);
 
+nodes.forEach(drawNode);
+setPathTiles();

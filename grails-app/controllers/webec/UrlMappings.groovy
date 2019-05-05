@@ -12,5 +12,6 @@ class UrlMappings {
         "/"(controller:'Map', action:'index')
         "500"(view:'/error/error')
         "404"(view:'/error/404')
+        "/modules"(controller:"Module", action: 'index', method:"GET")
     }
 }

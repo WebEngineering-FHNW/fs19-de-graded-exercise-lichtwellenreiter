@@ -110,18 +110,10 @@
 <asset:image src="dnc/floor/floor_3.png" style="display:none"/>
 <asset:image src="dnc/floor/floor_4.png" style="display:none"/>
 <asset:image src="dnc/floor/floor_5.png" style="display:none"/>
-<asset:image src="dnc/floor/floor_6.png" style="display:none"/>
-<asset:image src="dnc/floor/floor_7.png" style="display:none"/>
-<asset:image src="dnc/floor/floor_8.png" style="display:none"/>
 
 
 <asset:image src="dnc/node/node.png" style="display:none"/>
-<asset:image src="dnc/node/down-left.png" style="display:none"/>
-<asset:image src="dnc/node/down-right.png" style="display:none"/>
-<asset:image src="dnc/node/up-left.png" style="display:none"/>
-<asset:image src="dnc/node/up-right.png" style="display:none"/>
-<asset:image src="dnc/node/horizontal.png" style="display:none"/>
-<asset:image src="dnc/node/vertical.png" style="display:none"/>
+
 
 
 <asset:javascript src="map-helper.js"/>

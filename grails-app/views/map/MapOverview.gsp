@@ -113,6 +113,8 @@
 
 
 <asset:image src="dnc/node/node.png" style="display:none"/>
+<asset:image src="dnc/node/start.png" style="display:none"/>
+<asset:image src="dnc/node/running.png" style="display:none"/>
 
 
 

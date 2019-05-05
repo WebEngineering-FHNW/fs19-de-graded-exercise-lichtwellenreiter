@@ -37,22 +37,34 @@ window.onkeydown = function (e) {
 
     switch (e.code) {
         case 'ArrowUp':
+            console.log("character on path decision " + characterOnPath());
             if (character.y !== 0) {
-                character.y -= character.step;
+                if (characterOnPath()) {
+                    character.y -= character.step;
+                }
             }
             break;
         case 'ArrowLeft':
-
+            console.log("character on path decision " + characterOnPath());
             if (character.x !== 0) {
-                character.x -= character.step;
+                if (characterOnPath()) {
+                    character.x -= character.step;
+                }
             }
-
             break;
         case 'ArrowRight':
-            character.x += character.step;
+
+            console.log("character on path decision " + characterOnPath());
+
+            if (characterOnPath()) {
+                character.x += character.step;
+            }
             break;
         case 'ArrowDown':
-            character.y += character.step;
+            console.log("character on path decision " + characterOnPath());
+            if (characterOnPath()) {
+                character.y += character.step;
+            }
             break;
 
         case 'Space':
@@ -61,7 +73,6 @@ window.onkeydown = function (e) {
             } else {
                 getNodeForCharacterPosition();
             }
-
             break;
         case 'Escape':
             closeModal();
@@ -96,11 +107,23 @@ function closeModal() {
 }
 
 
-function checkIfCharacterIsOnPath() {
+function characterOnPath() {
+
     let x = Math.round(character.x / 40);
     let y = Math.round(character.y / 40);
 
 
+    return pathCoords.forEach((item, index) => {
+
+        console.log("CHECkED: " + item.x + " " + item.y);
+        console.log("CHARACTER: " + x + " " + y);
+        console.log("DECISION " + (item.x === x && item.y === y));
+        console.log("");
+
+        if (item.x === x && item.y === y) {
+            return true;
+        }
+    });
 }
 
 function getNodeForCharacterPosition() {

@@ -1,8 +1,9 @@
 //grid width and height
-let bw = 2680;
-let bh = 1600;
+let bw = window.innerWidth;
+let bh = window.innerHeight;
 //padding around grid
 let p = 0;
+
 
 //size of canvas
 let cw = bw + p + 1;
@@ -13,6 +14,8 @@ let tileW = 40;
 let tileH = 40;
 
 
+console.log(Math.round(bw / tileW) + " " + Math.round(bh / tileH));
+
 let showGrid = 0;
 let hover = false, id;
 
@@ -22,13 +25,10 @@ let mapContainer = document.getElementById("mapContainer");
 mapCanvasLayer1.width = cw;
 mapCanvasLayer1.height = ch;
 
-//mapContainer.scrollTo(map.width / 2, map.height / 2);
-
 mapContainer.scrollTo(mapContainer.left + mapContainer.width / 2, mapContainer.top + mapContainer.height / 2);
 
-
 let layer1 = mapCanvasLayer1.getContext("2d");
-
+let pathCoords = [];
 
 let nodes = [
     {
@@ -42,18 +42,18 @@ let nodes = [
     },
     {
         "name": "node0",
-        "abbr": "oop1",
+        "abbr": "node0",
         "namelong": "Objectoriented Programming 1",
         "description": "<p>In this course, students learn a typical object-oriented programming language, its options and potential.</p>" +
             "<p>Course content:</p>" +
-            "<ul>"+
+            "<ul>" +
             "<li>Repetitive procedural programming (primitive data types, control structures, functions and parameter transfer, reference types, multi-dimensional arrays)</li>" +
             "<li>Classes and objects (constructors, initialization blocks, methods, attributes, method overloading, lists, encapsulation, copying and comparing), wrapper classes, strings and packages</li>" +
             "<li>Object oriented prototype, introduction to UML</li>" +
             "<li>Inheritance, polymorphy, final elements, access rights</li>" +
             "<li>Abstract classes and interfaces</li>" +
             "<li>Static inner classes and element classes</li>" +
-            "<li>Exception handling</li>"+
+            "<li>Exception handling</li>" +
             "</ul>",
         "x": 18,
         "y": 5,
@@ -61,7 +61,7 @@ let nodes = [
     },
     {
         "name": "node1",
-        "abbr": "-",
+        "abbr": "node1",
         "namelong": "-",
         "description": "-",
         "x": 20,
@@ -70,7 +70,7 @@ let nodes = [
     },
     {
         "name": "node2",
-        "abbr": "-",
+        "abbr": "node2",
         "namelong": "-",
         "description": "-",
         "x": 15,
@@ -79,7 +79,7 @@ let nodes = [
     },
     {
         "name": "node3",
-        "abbr": "-",
+        "abbr": "node3",
         "namelong": "-",
         "description": "-",
         "x": 18,
@@ -88,7 +88,7 @@ let nodes = [
     },
     {
         "name": "node4",
-        "abbr": "-",
+        "abbr": "node4",
         "namelong": "-",
         "description": "-",
         "x": 25,
@@ -96,8 +96,6 @@ let nodes = [
         "edge": ["node1"]
     }
 ];
-
-let backgroundTiles = [];
 
 
 getColorIndicesForCoord = (x, y, width) => {
@@ -141,37 +139,14 @@ function drawBackground() {
     let columns = bw / tileW;
     let rows = bh / tileH;
 
-
     for (let i = 0; i < columns; i++) {
         for (let j = 0; j < rows; j++) {
             let image = new Image();
-            let randTile = Math.floor(Math.random() * 8 + 1);
+            let randTile = Math.floor(Math.random() * 5 + 1);
             image.src = "/assets/dnc/floor/floor_" + randTile + ".png";
             layer1.drawImage(image, getXCoord(i), getYCoord(j), tileW, tileH);
-
-            let bgTile = {
-                "x": i,
-                "y": j,
-                "tile": randTile
-            };
-
-            backgroundTiles.push(bgTile);
-
         }
     }
-
-    //console.log(backgroundTiles);
-}
-
-
-function findTileForPosition(x, y) {
-
-    return backgroundTiles.filter(n => {
-        if (n.x === x && n.y === y) {
-            return n.tile;
-        }
-    });
-
 }
 
 /**
@@ -180,8 +155,8 @@ function findTileForPosition(x, y) {
  * @param index
  */
 function drawNode(item, index) {
-    let x = getXCoord(item.x)
-    let y = getYCoord(item.y)
+    let x = getXCoord(item.x);
+    let y = getYCoord(item.y);
 
     let image = new Image();
     image.src = "/assets/dnc/node/node.png";
@@ -196,7 +171,6 @@ function drawNode(item, index) {
  */
 function drawEdgeBetweenNodes(n1, n2) {
 
-
     layer1.moveTo(getXCoord(n1.x) + (0.5 * tileW), getYCoord(n1.y) + (0.5 * tileH));
     layer1.lineTo(getXCoord(n1.x) + (0.5 * tileW), getYCoord(n2.y) + (0.5 * tileH));
     layer1.lineTo(getXCoord(n2.x) + (0.5 * tileW), getYCoord(n2.y) + (0.5 * tileH));
@@ -205,6 +179,56 @@ function drawEdgeBetweenNodes(n1, n2) {
     layer1.lineWidth = 10;
     layer1.stroke();
 }
+
+function getPathCoordinates(n1, n2) {
+
+    //FirstNode to corner
+    let startX = n1.x;
+    let startY = n1.y;
+
+    let cornerX = n1.x;
+    let cornerY = n2.y;
+
+    let endX = n2.x -1;
+    let endY = n2.y -1;
+
+    if (startY < cornerY) {
+
+        while (startY != cornerY) {
+            pathCoords.push({"x": startX, "y": startY});
+            startY++;
+        }
+    } else {
+        // CornerY < StartY
+        while (cornerY != startY) {
+            pathCoords.push({"x": startX, "y": cornerY});
+            cornerY++;
+            //console.log(cornerY);
+        }
+    }
+
+    if (endX < cornerX) {
+
+        while (endX != cornerX) {
+            pathCoords.push({"x": endX, "y": endY});
+            endX++;
+            //console.log(endX);
+        }
+    } else {
+        // CornerX < StartX
+        while (cornerX != endX) {
+            pathCoords.push({"x": endX, "y": cornerY});
+            cornerX++;
+            //console.log(cornerX);
+        }
+    }
+
+    //console.log(pathCoords);
+}
+
+
+console.log(pathCoords);
+
 
 /**
  * Draw all Edges
@@ -240,11 +264,12 @@ function drawEdges(node, index) {
  * @returns {*[]}
  */
 function getNodeForName(name) {
-    return nodes.find( node => node.name === name );
+    return nodes.find(node => node.name === name);
 }
 
 
 let pathTiles;
+
 function setPathTiles() {
 
     pathTiles = [];
@@ -253,8 +278,18 @@ function setPathTiles() {
 
         //console.log(item);
     });
+}
+
+
+function drawNodesAndPath() {
+
 
 }
+
+function getPathBewteenNodes() {
+
+}
+
 
 /**
  * Initialize Map
@@ -273,6 +308,13 @@ drawEdgeBetweenNodes(nodes[1], nodes[2]);
 drawEdgeBetweenNodes(nodes[2], nodes[3]);
 drawEdgeBetweenNodes(nodes[2], nodes[4]);
 drawEdgeBetweenNodes(nodes[2], nodes[5]);
+
+getPathCoordinates(getNodeForName("start"), getNodeForName("node0"));
+getPathCoordinates(getNodeForName("node0"), getNodeForName("node1"));
+getPathCoordinates(getNodeForName("node1"), getNodeForName("node2"));
+getPathCoordinates(getNodeForName("node1"), getNodeForName("node3"));
+getPathCoordinates(getNodeForName("node1"), getNodeForName("node4"));
+
 
 nodes.forEach(drawNode);
 setPathTiles();

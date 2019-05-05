@@ -40,16 +40,24 @@ class BootStrap {
         /**
          * Add Module Data
          */
-        save(Module.findOrCreateWhere(name: "Objectoriented Programming 1",     abbreviation: "oop1",   msp: true, credits: 3))
-        save(Module.findOrCreateWhere(name: "Objectoriented Programming 2",     abbreviation: "oop2",   msp: true, credits: 3))
-        save(Module.findOrCreateWhere(name: "Algorithms and Datastructures 1",  abbreviation: "algd1",  msp: true, credits: 3))
-        save(Module.findOrCreateWhere(name: "Algorithms and Datastructures 2",  abbreviation: "algd2",  msp: true, credits: 3))
-        save(Module.findOrCreateWhere(name: "C++ Programming",                  abbreviation: "prcpp",  msp: true, credits: 3))
-        save(Module.findOrCreateWhere(name: "Compiler Build",                   abbreviation: "cpib",   msp: true, credits: 3))
-        save(Module.findOrCreateWhere(name: "Concurrent Programming",           abbreviation: "conpr",  msp: true, credits: 3))
-        save(Module.findOrCreateWhere(name: "Functional Programming",           abbreviation: "fprog",  msp: true, credits: 3))
+        save(Module.findOrCreateWhere(name: "Objectoriented Programming 1", abbreviation: "oop1", msp: true, credits: 3, type: "node", description: "-"))
+        save(Module.findOrCreateWhere(name: "Objectoriented Programming 2", abbreviation: "oop2", msp: true, credits: 3, type: "node", description: "-"))
+        save(Module.findOrCreateWhere(name: "Algorithms and Datastructures 1", abbreviation: "algd1", msp: true, credits: 3, type: "node", description: "-"))
+        save(Module.findOrCreateWhere(name: "Algorithms and Datastructures 2", abbreviation: "algd2", msp: true, credits: 3, type: "node", description: "-"))
+        save(Module.findOrCreateWhere(name: "C++ Programming", abbreviation: "prcpp", msp: true, credits: 3, type: "node", description: "-"))
+        save(Module.findOrCreateWhere(name: "Compiler Build", abbreviation: "cpib", msp: true, credits: 3, type: "node", description: "-"))
+        save(Module.findOrCreateWhere(name: "Concurrent Programming", abbreviation: "conpr", msp: true, credits: 3, type: "node", description: "-"))
+        save(Module.findOrCreateWhere(name: "Functional Programming", abbreviation: "fprog", msp: true, credits: 3, type: "node", description: "-"))
 
         assert Module.count() == 8
+
+        /**
+         * Add Edges
+         */
+
+        save(Edge.findOrCreateWhere(parent: Module.findByAbbreviation("oop1"), child: Module.findByAbbreviation("oop2")))
+
+        assert Edge.count() == 1
 
     }
 

@@ -7,3 +7,6 @@ https://66.media.tumblr.com/c751841df69f0db505715ca60af8e106/tumblr_paete84Ur41w
 
 Floor Tiles and Sprites
 https://0x72.itch.io/dungeontileset-ii
+
+JSON with JS XHR
+https://stackoverflow.com/questions/12460378/how-to-get-json-from-url-in-javascript

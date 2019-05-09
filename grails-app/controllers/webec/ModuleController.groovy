@@ -1,12 +1,29 @@
 package webec
 
-import grails.rest.RestfulController
 
-class ModuleController extends RestfulController {
+import groovy.json.JsonBuilder
 
-    static responseFormats = ['json']
+class ModuleController {
 
-    ModuleController() {
-        super(Module)
+    def getModules() {
+
+        def module = Module.list()
+
+        JsonBuilder jsonBuilder = new JsonBuilder()
+
+        jsonBuilder.result {
+            id module.id
+            abbreviation module.abbreviation
+            edges Edge.findById(module.edges)
+            msp module.msp
+            credits module.credits
+            name module.name
+            type module.type
+            description module.description
+        }
+
+        response jsonBuilder.toString()
+
     }
+
 }

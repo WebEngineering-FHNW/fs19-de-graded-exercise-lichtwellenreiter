@@ -38,7 +38,8 @@ let nodes = [
         "description": "-",
         "x": 16,
         "y": 5,
-        "edge": ["node0"]
+        "edge": ["node0"],
+        "type": "start"
     },
     {
         "name": "node0",
@@ -57,7 +58,8 @@ let nodes = [
             "</ul>",
         "x": 18,
         "y": 5,
-        "edge": ["node1"]
+        "edge": ["node1"],
+        "type": "node"
     },
     {
         "name": "node1",
@@ -66,7 +68,8 @@ let nodes = [
         "description": "-",
         "x": 20,
         "y": 9,
-        "edge": ["node2", "node3"]
+        "edge": ["node2", "node3"],
+        "type": "node"
     },
     {
         "name": "node2",
@@ -75,7 +78,8 @@ let nodes = [
         "description": "-",
         "x": 15,
         "y": 11,
-        "edge": []
+        "edge": [],
+        "type": "node"
     },
     {
         "name": "node3",
@@ -84,7 +88,8 @@ let nodes = [
         "description": "-",
         "x": 18,
         "y": 15,
-        "edge": ["node1"]
+        "edge": ["node1"],
+        "type": "node"
     },
     {
         "name": "node4",
@@ -93,7 +98,8 @@ let nodes = [
         "description": "-",
         "x": 25,
         "y": 5,
-        "edge": ["node1"]
+        "edge": ["node1"],
+        "type": "node"
     }
 ];
 
@@ -159,7 +165,7 @@ function drawNode(item, index) {
     let y = getYCoord(item.y);
 
     let image = new Image();
-    image.src = "/assets/dnc/node/node.png";
+    image.src = "/assets/dnc/node/" + item.type + ".png";
     layer1.drawImage(image, x, y, tileW, tileH);
 }
 
@@ -189,8 +195,12 @@ function getPathCoordinates(n1, n2) {
     let cornerX = n1.x;
     let cornerY = n2.y;
 
-    let endX = n2.x -1;
-    let endY = n2.y -1;
+    let endX = n2.x - 1;
+    let endY = n2.y - 1;
+
+
+    pathCoords.push({"x": cornerX, "y": cornerY});
+    pathCoords.push({"x": n2.x, "y": n2.y});
 
     if (startY < cornerY) {
 
@@ -268,29 +278,6 @@ function getNodeForName(name) {
 }
 
 
-let pathTiles;
-
-function setPathTiles() {
-
-    pathTiles = [];
-
-    nodes.forEach((item, index) => {
-
-        //console.log(item);
-    });
-}
-
-
-function drawNodesAndPath() {
-
-
-}
-
-function getPathBewteenNodes() {
-
-}
-
-
 /**
  * Initialize Map
  */
@@ -317,4 +304,4 @@ getPathCoordinates(getNodeForName("node1"), getNodeForName("node4"));
 
 
 nodes.forEach(drawNode);
-setPathTiles();
+

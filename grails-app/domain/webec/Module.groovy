@@ -1,18 +1,16 @@
 package webec
 
-import grails.rest.Resource
 
-//@Resource(uri='/modules', formats=['json'])
 class Module {
 
-    int id
-    String type
-    String name
-    String abbreviation
-    String description
+    int     id
+    String  type
+    String  name
+    String  abbreviation
+    String  description
     boolean msp = false
-    int credits
-    Edge edges
+    int     credits
+    Edge    edges
 
 
     static constraints = {

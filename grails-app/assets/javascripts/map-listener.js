@@ -5,7 +5,7 @@ let help = document.getElementById("helpButton");
 
 mapCanvasLayer1.onmousemove = function (e) {
 
-    var mouseX, mouseY;
+    let mouseX, mouseY;
 
     if (e.offsetX) {
         mouseX = e.offsetX;
@@ -37,32 +37,27 @@ window.onkeydown = function (e) {
 
     switch (e.code) {
         case 'ArrowUp':
-            console.log("character on path decision " + characterOnPath());
             if (character.y !== 0) {
-                if (characterOnPath()) {
+                if (canPlayerWalk(character.x, character.y - character.step)) {
                     character.y -= character.step;
                 }
             }
             break;
         case 'ArrowLeft':
-            console.log("character on path decision " + characterOnPath());
             if (character.x !== 0) {
-                if (characterOnPath()) {
+                if (canPlayerWalk(character.x - character.step, character.y)) {
                     character.x -= character.step;
                 }
             }
             break;
         case 'ArrowRight':
 
-            console.log("character on path decision " + characterOnPath());
-
-            if (characterOnPath()) {
+            if (canPlayerWalk(character.x + character.step, character.y)) {
                 character.x += character.step;
             }
             break;
         case 'ArrowDown':
-            console.log("character on path decision " + characterOnPath());
-            if (characterOnPath()) {
+            if (canPlayerWalk(character.x, character.y + character.step)) {
                 character.y += character.step;
             }
             break;
@@ -106,24 +101,53 @@ function closeModal() {
     localStorage.removeItem("modalOpen");
 }
 
+/**
+ * Check if a Player can Step on the next tile
+ * @param x
+ * @param y
+ */
+function canPlayerWalk(x, y) {
 
-function characterOnPath() {
+    console.log("Player next Tile: " + x + " " + y);
 
-    let x = Math.round(character.x / 40);
-    let y = Math.round(character.y / 40);
+    let xCoord = Math.round(x / 40);
+    let yCoord = Math.round(y / 40);
 
+    console.log("Player next Tile: " + xCoord + " " + yCoord);
 
-    return pathCoords.forEach((item, index) => {
+    let checkPath = isPlayerOnPath(xCoord, yCoord);
+    let checkNode = isPlayerOnNode(xCoord, yCoord);
 
-        console.log("CHECkED: " + item.x + " " + item.y);
-        console.log("CHARACTER: " + x + " " + y);
-        console.log("DECISION " + (item.x === x && item.y === y));
-        console.log("");
+    console.log("Check for Path: " + checkPath);
+    console.log("Check for Node: " + checkNode);
 
-        if (item.x === x && item.y === y) {
+    if (!checkPath) {
+        if (checkNode) {
             return true;
         }
+    } else {
+        return true;
+    }
+
+
+    return false;
+
+}
+
+function isPlayerOnNode(x, y) {
+    const index = nodes.findIndex(n => {
+        return (n.x === x && n.y === y);
     });
+    console.log("playerOnNode: " + index);
+    return index !== -1;
+}
+
+function isPlayerOnPath(x, y) {
+    const index = pathCoords.findIndex((item, index) => {
+        return (item.x === x && item.y === y);
+    });
+    console.log("playerOnPath: " + index);
+    return index !== -1;
 }
 
 function getNodeForCharacterPosition() {

@@ -4,15 +4,9 @@ import grails.rest.RestfulController
 
 class ModuleController extends RestfulController {
 
-    ModuleController(Class resource) {
-        super(resource)
+    static responseFormats = ['json']
+
+    ModuleController() {
+        super(Module)
     }
-
-    def index() {
-        render text: "Hello from ModuleController"
-    }
-
-
-
-
 }

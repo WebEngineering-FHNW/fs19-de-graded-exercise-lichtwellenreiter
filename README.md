@@ -50,13 +50,17 @@ How to start the project: (if other than `grailsw run-app`)
 How to test the project:  (if other than `grailsw test-app`)
 
 Hand-written, static HTML 
-project description:      (if other than `index.html` in project root directory)
+project description:      (if other than `index.html` in project root directory)  
+You can find a description in the html on startup under the link: _What is it all about?_
 
-External contributions:
+External contributions:  
+-- Thanks to Christopher Lis www.christopherlis.com | https://github.com/christopher4lis and his awesome youtube channel. That pushed me really into JS Canvas Element
 
-Other comments: 
+Other comments:  
+-- Login to System by using credentials admin/admin
 
-I'm particular proud of:
+I'm particular proud of:  
+-- the exessive use of the canvas element to draw the map and the paths
 
 
 ## Project grading 

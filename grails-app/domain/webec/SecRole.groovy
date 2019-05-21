@@ -11,9 +11,9 @@ class SecRole implements Serializable {
 
 	private static final long serialVersionUID = 1
 
-	static final String ADMIN = "ROLE_ADMIN"
+	static final String ADMIN   = "ROLE_ADMIN"
 	static final String STUDENT = "ROLE_STUDENT"
-	static final String GUEST = "ROLE_GUEST"
+	static final String GUEST   = "ROLE_GUEST"
 
 	String authority
 

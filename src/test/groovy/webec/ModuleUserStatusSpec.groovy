@@ -5,14 +5,18 @@ import spock.lang.Specification
 
 class ModuleUserStatusSpec extends Specification implements DomainUnitTest<ModuleUserStatus> {
 
-    def setup() {
-    }
 
-    def cleanup() {
-    }
+    void "test user status range"() {
+        expect: "Status Codes"
+        new ModuleUserStatusSpec(status:modStatus).validate("status") == shouldValid
 
-    void "test something"() {
-        expect:"fix me"
-            true == false
+        where:
+        modStatus   | shouldValid
+        -1              | false
+        0               | true
+        1               | true
+        2               | true
+        3               | false
+        99              | false
     }
 }

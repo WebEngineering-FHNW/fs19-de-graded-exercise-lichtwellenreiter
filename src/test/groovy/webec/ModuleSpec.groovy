@@ -5,12 +5,6 @@ import spock.lang.Specification
 
 class ModuleSpec extends Specification implements DomainUnitTest<Module> {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "test credits range"() {
 
         expect: "Range of Credits"

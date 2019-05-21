@@ -54,7 +54,15 @@ project description:      (if other than `index.html` in project root directory)
 You can find a description in the html on startup under the link: _What is it all about?_
 
 External contributions:  
--- Thanks to Christopher Lis www.christopherlis.com | https://github.com/christopher4lis and his awesome youtube channel. That pushed me really into JS Canvas Element
+Thanks to  
+-- Christopher Lis www.christopherlis.com | https://github.com/christopher4lis and his awesome youtube channel. That pushed me really into JS Canvas Element  
+-- w3schools - for the awesome tutorials, documentation and styling tipps (shoutout to tooltip)  
+-- danglingmouse http://danglingmouse.com/ for the great artowrk used as login screen  
+-- pixelartinc https://pixelartinc.tumblr.com/post/175512041614 for that genius error screen background  
+-- 0x72 https://0x72.itch.io/dungeontileset-ii where I got these beatiful dungeontiles and character images  
+-- the community at stackoverflow to showing me how to deal with XMLHttpRequest https://stackoverflow.com/questions/12460378/how-to-get-json-from-url-in-javascript so I didnt had to use jQuery  
+and last but not least  
+to all the blogs, magazines, books, videos that I consumed while I was working on this project.
 
 Other comments:  
 -- Login to System by using credentials student/student

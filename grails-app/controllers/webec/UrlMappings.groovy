@@ -9,7 +9,6 @@ class UrlMappings {
             }
         }
 
-        "/modules"(controller: "Module", action: "getModules")
         "/"(controller: 'Map', action: 'index')
         "500"(view: '/error/error')
         "404"(view: '/error/404')

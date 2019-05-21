@@ -1,6 +1,8 @@
 package webec
 
+import grails.rest.Resource
 
+@Resource(uri="/module")
 class Module {
 
     int     id

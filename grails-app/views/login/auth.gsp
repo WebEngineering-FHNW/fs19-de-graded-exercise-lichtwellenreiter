@@ -94,6 +94,7 @@
                 This is a gamification of the module Path at the FHNW BSc Computer Science. It is part of the webec Module. You can track your journey at the FHNW with ease and fun.<br/>
                 Login with student/student
             </p>
+
             <p>
                 More about FHNW: <a href="https://www.fhnw.ch/en/startseite" target="_blank">Website</a>
             </p>
@@ -104,56 +105,27 @@
         </div>
     </section>
 
+    <section class="center-box not-supported" id="notsupported">
+        <h2>This Browser is not supported</h2>
+
+        <div class="not-supported-text">
+            <p>
+                Please download Firefox to run this app.
+            </p>
+
+            <p>
+                <a href="https://www.mozilla.org/de/firefox/new/" target="_blank">Download Firefox</a>
+            </p>
+        </div>
+
+        <div class="footer-info">
+          <p>sorry ...</p>
+        </div>
+    </section>
+
 </main>
 
-<script>
-
-    let loginBox = document.getElementById("login");
-    let registerBox = document.getElementById("register");
-    let allAbout = document.getElementById("allabout");
-
-    function toggleBoxes(requestBox) {
-
-        switch (requestBox) {
-            case 'register':
-                loginBox.style.visibility = 'hidden';
-                registerBox.style.visibility = 'visible';
-                allAbout.style.visibility = 'hidden';
-                localStorage.setItem('lastPage', 'register');
-                break;
-            case 'allabout':
-                loginBox.style.visibility = 'hidden';
-                registerBox.style.visibility = 'hidden';
-                allAbout.style.visibility = 'visible';
-                localStorage.setItem('lastPage', '');
-                break;
-            default:
-                loginBox.style.visibility = 'visible';
-                registerBox.style.visibility = 'hidden';
-                allAbout.style.visibility = 'hidden';
-                localStorage.setItem('lastPage', '');
-                break;
-        }
-    }
-
-    toggleBoxes(localStorage.getItem('lastPage'));
-
-
-    let password = document.getElementById("register-password"),
-        confirm_password = document.getElementById("register-password-confirmation");
-
-    function validatePassword() {
-        if (password.value != confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords Don't Match");
-        } else {
-            confirm_password.setCustomValidity('');
-        }
-    }
-
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
-
-</script>
+<asset:javascript src="login.js"/>
 
 </body>
 </html>

@@ -37,7 +37,9 @@ mapContainer.scrollTo(mapContainer.left + mapContainer.width / 2, mapContainer.t
 let layer1 = mapCanvasLayer.getContext("2d");
 let pathCoords = [];
 let nodes = [];
+let edges = []
 
+const helpButton = document.getElementById("helpButton");
 const helpModal = document.getElementById('helpModal');
 const nodeModal = document.getElementById('nodeModal');
 
@@ -94,7 +96,7 @@ function drawBackground() {
  * @param n2
  */
 function drawEdgeBetweenNodes(n1, n2) {
-
+    layer1.beginPath();
     layer1.moveTo(helper.getXCoord(n1.x) + (0.5 * tileW), helper.getYCoord(n1.y) + (0.5 * tileH));
     layer1.lineTo(helper.getXCoord(n1.x) + (0.5 * tileW), helper.getYCoord(n2.y) + (0.5 * tileH));
     layer1.lineTo(helper.getXCoord(n2.x) + (0.5 * tileW), helper.getYCoord(n2.y) + (0.5 * tileH));
@@ -102,6 +104,7 @@ function drawEdgeBetweenNodes(n1, n2) {
     layer1.strokeStyle = "#d6ac2a";
     layer1.lineWidth = 10;
     layer1.stroke();
+
 }
 
 function getPathCoordinates(n1, n2) {
@@ -188,32 +191,18 @@ function drawEdges(node, index) {
  * @returns {*[]}
  */
 function getNodeForType(type) {
-    const node = nodes.find(node => node.type === type);
-    //console.log(node);
-    return node;
+    return nodes.find(node => node.type === type);
 }
 
-
-/**
- * Get Data from Backend
- */
-helper.doGet('/module',
-    (err, data) => {
-        if (err !== null) {
-            alert('Cannot calling Map Data \n' +
-                'Error raised: ' + err.number + '\n' +
-                'Is the server running?');
-        } else {
-            nodes = data;
-            setupMap();
-        }
-    });
-
+function getNodeForId(id) {
+    return nodes.find(node => node.id === id);
+    ;
+}
 
 function generateStartNode() {
 
-    const centerX = helper.getXCoord(Math.round((bw / tileW) / 2));
-    const centerY = helper.getYCoord(Math.round((bh / tileH) / 2));
+    const centerX = Math.round((bw / tileW) / 2);
+    const centerY = Math.round((bh / tileH) / 2);
 
     let startNode = {
         type: "start",
@@ -256,30 +245,49 @@ function drawNodes() {
 
         if (node.type === "start") {
 
-            let startImage = new Image();
+            const startImage = new Image();
             startImage.src = "/assets/dnc/node/start.png";
-            layer1.drawImage(startImage, node.x, node.y, tileW, tileH);
+            layer1.drawImage(startImage, helper.getXCoord(node.x), helper.getYCoord(node.y), tileW, tileH);
 
-
-        } else if (node.type === "base") {
-            baseNodes.push(node);
         } else {
-            childNodes.push(node);
+            const nodeImage = new Image();
+            nodeImage.src = "/assets/dnc/node/node.png";
+            layer1.drawImage(nodeImage, helper.getXCoord(node.x), helper.getYCoord(node.y), tileW, tileH);
         }
 
     });
-
-    //console.log(baseNodes.length);
-
-    baseNodes.forEach((bnode, index) => {
-
-        if (index === 0) {
-
-        }
-
-    });
-
 }
+
+function drawPaths() {
+    edges.forEach(edge => {
+        drawEdgeBetweenNodes(getNodeForId(edge.parent.id), getNodeForId(edge.child.id));
+    });
+}
+
+/**
+ * Get Data from Backend
+ */
+helper.doGet('/module',
+    (err, data) => {
+        if (err !== null) {
+            alert('Cannot calling Map Data \n' +
+                'Error raised: ' + err.number + '\n' +
+                'Is the server running?');
+        } else {
+            nodes = data;
+            helper.doGet('/edge', (err, data) => {
+
+                if (err !== null) {
+                    alert('Cannot calling Map Data \n' +
+                        'Error raised: ' + err.number + '\n' +
+                        'Is the server running?');
+                } else {
+                    edges = data;
+                    setupMap();
+                }
+            })
+        }
+    });
 
 
 /**
@@ -289,12 +297,10 @@ function setupMap() {
 
     drawGrid();
     drawBackground();
-    generateStartNode();
 
-    //console.log(nodes);
-
-
+    drawPaths();
     drawNodes();
+
 
     const startNode = getNodeForType("start");
     character.setStartNode(startNode);
@@ -309,7 +315,7 @@ function setupMap() {
     //nodes.forEach(drawEdges)
 
     //Todo remove this with upper line ...
-    /*drawEdgeBetweenNodes(nodes[0], nodes[1]);
+    /*;
     drawEdgeBetweenNodes(nodes[1], nodes[2]);
     drawEdgeBetweenNodes(nodes[2], nodes[3]);
     drawEdgeBetweenNodes(nodes[2], nodes[4]);
@@ -322,8 +328,9 @@ function setupMap() {
         getPathCoordinates(getNodeForType("node1"), getNodeForType("node3"));
         getPathCoordinates(getNodeForType("node1"), getNodeForType("node4"));*/
 
+    console.log(nodes);
+    console.log(edges);
 
-    nodes.forEach(drawNode);
 
     animate();
 
@@ -337,10 +344,25 @@ function animate() {
 
 
 function openModal(node) {
+    localStorage.setItem('modalOpen', "true");
     this.nodeModal.style.display = "block";
-    document.getElementById("nodeModalTitle").innerText = node.namelong;
-    document.getElementById("nodeModalNodeName").innerText = node.abbr;
-    document.getElementById("nodeModalNodeDescription").innerHTML = node.description;
+    document.getElementById("nodeModalTitle").innerText = node.name;
+    document.getElementById("nodeModalNodeName").innerText = node.abbreviation;
+
+    if ("-" === node.description) {
+        document.getElementById("nodeModalNodeDescription").innerHTML = "no description available";
+    } else {
+        document.getElementById("nodeModalNodeDescription").innerHTML = node.description;
+    }
+
+    if (true === node.msp) {
+        document.getElementById("nodeModalMSP").innerHTML = "final exam";
+    } else {
+        document.getElementById("nodeModalMSP").innerHTML = "NO final exam";
+    }
+    document.getElementById("nodeModalCredits").innerHTML = "ECTS: " + node.credits + " / ";
+
+
 }
 
 function closeModal() {
@@ -373,18 +395,18 @@ function getNodeForCharacterPosition() {
     const x = Math.round(character.x / 40);
     const y = Math.round(character.y / 40);
 
-    return nodes.filter(n => {
+    let node = nodes.filter(n => {
         if (n.x === x && n.y === y) {
 
-
-            if (n.name !== "start") {
-                //console.log("Character is on Node. Node: " + n.name);
-                localStorage.setItem('modalOpen', "true");
-                this.openNodeModal(n);
+            if (n.type !== "start") {
+                console.log("Character is on node. Node: " + n.abbreviation);
+                return n;
             }
 
         }
     });
+
+    openModal(getNodeForId(node[0].id));
 }
 
 
@@ -451,10 +473,14 @@ window.onkeydown = function (e) {
             break;
 
         case 'Space':
+
+            console.log(character.x);
+            console.log(character.y);
+
             if (localStorage.getItem("modalOpen") === "true") {
-                this.closeModal();
+                closeModal();
             } else {
-                this.getNodeForCharacterPosition();
+                getNodeForCharacterPosition();
             }
             break;
         case 'Escape':
@@ -475,8 +501,8 @@ window.onclick = function (event) {
 };
 
 
-helpModal.onclick = function () {
-    this.helpModal.style.display = "block";
+helpButton.onclick = function () {
+    helpModal.style.display = "block";
     localStorage.setItem("modalOpen", "true");
 };
 

@@ -9,8 +9,8 @@ function Character(charstep, charlayer, help) {
 }
 
 Character.prototype.setStartNode = function(startNode){
-    this.x = startNode.x;
-    this.y = (startNode.y) - 3;
+    this.x = this.helper.getXCoord(startNode.x);
+    this.y = this.helper.getYCoord(startNode.y);
 };
 
 

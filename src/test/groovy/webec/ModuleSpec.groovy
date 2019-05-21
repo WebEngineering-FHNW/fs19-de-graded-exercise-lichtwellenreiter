@@ -13,7 +13,7 @@ class ModuleSpec extends Specification implements DomainUnitTest<Module> {
         where:
         moduleCredits   | shouldValid
         -1              | false
-        0               | false
+        0               | true
         1               | true
         2               | true
         3               | true

@@ -70,7 +70,8 @@ Other comments:
 -- app does not work in safari & chrome due to canvas rendering issues. Implemented a browser check.
 
 I'm particular proud of:  
--- the exessive use of the canvas element to draw the map and the paths
+-- the exessive use of the canvas element to draw the map and the paths  
+-- started this awesome app only with bare JS (no external library is used) and a stable Backend. 
 
 
 ## Project grading 

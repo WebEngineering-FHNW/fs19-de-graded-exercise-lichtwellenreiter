@@ -6,7 +6,7 @@ let registerBox = document.getElementById("register");
 let allAbout = document.getElementById("allabout");
 let notsupported = document.getElementById("notsupported");
 
-
+// EXTERNAL Browser Check from Stackoverflow --> https://stackoverflow.com/questions/2400935/browser-detection-in-javascript
 let browser = navigator.sayswho = (function () {
     var ua = navigator.userAgent, tem,
         M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];

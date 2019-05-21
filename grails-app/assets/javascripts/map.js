@@ -1,114 +1,45 @@
-//grid width and height
-let bw = window.innerWidth;
-let bh = window.innerHeight;
+const bw = window.innerWidth;
+const bh = window.innerHeight;
+
 //padding around grid
-let p = 0;
+const p = 0;
 
 
 //size of canvas
-let cw = bw + p + 1;
-let ch = bh + p + 1;
+const cw = bw + p + 1;
+const ch = bh + p + 1;
 
 // size of one tile
-let tileW = 40;
-let tileH = 40;
+const tileW = 40;
+const tileH = 40;
 
+// do show the grid
+const showGrid = 0;
 
-console.log(Math.round(bw / tileW) + " " + Math.round(bh / tileH));
-
-let showGrid = 0;
-let hover = false, id;
-
-let mapCanvasLayer1 = document.getElementById("mapLayer1");
+let mapCanvasLayer = document.getElementById("mapLayer1");
 let mapContainer = document.getElementById("mapContainer");
 
-mapCanvasLayer1.width = cw;
-mapCanvasLayer1.height = ch;
+mapCanvasLayer.width = cw;
+mapCanvasLayer.height = ch;
+
+let characterCanvasLayer = document.getElementById("mapLayer2");
+let characterLayer = characterCanvasLayer.getContext("2d");
+
+characterCanvasLayer.width = cw;
+characterCanvasLayer.height = ch;
+
+
+const helper = new Helper(tileW, tileH);
+const character = new Character(40, characterLayer, helper);
 
 mapContainer.scrollTo(mapContainer.left + mapContainer.width / 2, mapContainer.top + mapContainer.height / 2);
 
-let layer1 = mapCanvasLayer1.getContext("2d");
+let layer1 = mapCanvasLayer.getContext("2d");
 let pathCoords = [];
-let mapData = 0;
+let nodes = [];
 
-let nodes = [
-    {
-        "name": "start",
-        "abbr": "start",
-        "namelong": "start",
-        "description": "-",
-        "x": 16,
-        "y": 5,
-        "edge": ["node0"],
-        "type": "start"
-    },
-    {
-        "name": "node0",
-        "abbr": "node0",
-        "namelong": "Objectoriented Programming 1",
-        "description": "<p>In this course, students learn a typical object-oriented programming language, its options and potential.</p>" +
-            "<p>Course content:</p>" +
-            "<ul>" +
-            "<li>Repetitive procedural programming (primitive data types, control structures, functions and parameter transfer, reference types, multi-dimensional arrays)</li>" +
-            "<li>Classes and objects (constructors, initialization blocks, methods, attributes, method overloading, lists, encapsulation, copying and comparing), wrapper classes, strings and packages</li>" +
-            "<li>Object oriented prototype, introduction to UML</li>" +
-            "<li>Inheritance, polymorphy, final elements, access rights</li>" +
-            "<li>Abstract classes and interfaces</li>" +
-            "<li>Static inner classes and element classes</li>" +
-            "<li>Exception handling</li>" +
-            "</ul>",
-        "x": 18,
-        "y": 5,
-        "edge": ["node1"],
-        "type": "node"
-    },
-    {
-        "name": "node1",
-        "abbr": "node1",
-        "namelong": "-",
-        "description": "-",
-        "x": 20,
-        "y": 9,
-        "edge": ["node2", "node3"],
-        "type": "node"
-    },
-    {
-        "name": "node2",
-        "abbr": "node2",
-        "namelong": "-",
-        "description": "-",
-        "x": 15,
-        "y": 11,
-        "edge": [],
-        "type": "node"
-    },
-    {
-        "name": "node3",
-        "abbr": "node3",
-        "namelong": "-",
-        "description": "-",
-        "x": 18,
-        "y": 15,
-        "edge": ["node1"],
-        "type": "node"
-    },
-    {
-        "name": "node4",
-        "abbr": "node4",
-        "namelong": "-",
-        "description": "-",
-        "x": 25,
-        "y": 5,
-        "edge": ["node1"],
-        "type": "node"
-    }
-];
-
-
-getColorIndicesForCoord = (x, y, width) => {
-    const red = y * (width * 4) + x * 4;
-    return [red, red + 1, red + 2, red + 3];
-};
+const helpModal = document.getElementById('helpModal');
+const nodeModal = document.getElementById('nodeModal');
 
 
 /**
@@ -151,23 +82,9 @@ function drawBackground() {
             let image = new Image();
             let randTile = Math.floor(Math.random() * 5 + 1);
             image.src = "/assets/dnc/floor/floor_" + randTile + ".png";
-            layer1.drawImage(image, getXCoord(i), getYCoord(j), tileW, tileH);
+            layer1.drawImage(image, helper.getXCoord(i), helper.getYCoord(j), tileW, tileH);
         }
     }
-}
-
-/**
- * Draw a node
- * @param item
- * @param index
- */
-function drawNode(item, index) {
-    let x = getXCoord(item.x);
-    let y = getYCoord(item.y);
-
-    let image = new Image();
-    image.src = "/assets/dnc/node/" + item.type + ".png";
-    layer1.drawImage(image, x, y, tileW, tileH);
 }
 
 
@@ -178,9 +95,9 @@ function drawNode(item, index) {
  */
 function drawEdgeBetweenNodes(n1, n2) {
 
-    layer1.moveTo(getXCoord(n1.x) + (0.5 * tileW), getYCoord(n1.y) + (0.5 * tileH));
-    layer1.lineTo(getXCoord(n1.x) + (0.5 * tileW), getYCoord(n2.y) + (0.5 * tileH));
-    layer1.lineTo(getXCoord(n2.x) + (0.5 * tileW), getYCoord(n2.y) + (0.5 * tileH));
+    layer1.moveTo(helper.getXCoord(n1.x) + (0.5 * tileW), helper.getYCoord(n1.y) + (0.5 * tileH));
+    layer1.lineTo(helper.getXCoord(n1.x) + (0.5 * tileW), helper.getYCoord(n2.y) + (0.5 * tileH));
+    layer1.lineTo(helper.getXCoord(n2.x) + (0.5 * tileW), helper.getYCoord(n2.y) + (0.5 * tileH));
 
     layer1.strokeStyle = "#d6ac2a";
     layer1.lineWidth = 10;
@@ -214,7 +131,7 @@ function getPathCoordinates(n1, n2) {
         while (cornerY != startY) {
             pathCoords.push({"x": startX, "y": cornerY});
             cornerY++;
-            //console.log(cornerY);
+            //// //console.log(cornerY);
         }
     }
 
@@ -223,23 +140,19 @@ function getPathCoordinates(n1, n2) {
         while (endX != cornerX) {
             pathCoords.push({"x": endX, "y": endY});
             endX++;
-            //console.log(endX);
+            //// //console.log(endX);
         }
     } else {
         // CornerX < StartX
         while (cornerX != endX) {
             pathCoords.push({"x": endX, "y": cornerY});
             cornerX++;
-            //console.log(cornerX);
+            //// //console.log(cornerX);
         }
     }
 
-    //console.log(pathCoords);
+    //// //console.log(pathCoords);
 }
-
-
-console.log(pathCoords);
-
 
 /**
  * Draw all Edges
@@ -253,9 +166,9 @@ function drawEdges(node, index) {
 
     if (undefined != node.edge && node.edge.length > 0) {
 
-        for (i = 0; i < node.edge.length; i++) {
+        for (let i = 0; i < node.edge.length; i++) {
 
-            let nnode = getNodeForName(node.edge[i]);
+            let nnode = getNodeForType(node.edge[i]);
 
             layer1.moveTo(node.x + centerW, node.y + centerH);
             layer1.lineTo(node.x + centerW, nnode.y + centerH);
@@ -271,72 +184,333 @@ function drawEdges(node, index) {
 
 /**
  * Get a Node Object from a Nodename
- * @param name
+ * @param type
  * @returns {*[]}
  */
-function getNodeForName(name) {
-    return nodes.find(node => node.name === name);
+function getNodeForType(type) {
+    const node = nodes.find(node => node.type === type);
+    //console.log(node);
+    return node;
 }
 
 
 /**
  * Get Data from Backend
  */
-
-let mods = doGet('/module',
-    function (err, data) {
+helper.doGet('/module',
+    (err, data) => {
         if (err !== null) {
-            alert('Cannot calling Map Data \n ' +
+            alert('Cannot calling Map Data \n' +
                 'Error raised: ' + err.number + '\n' +
-                err.message);
-            mapData = 500;
-
+                'Is the server running?');
         } else {
-            console.log("from ajax");
-            console.log(data);
+            nodes = data;
+            setupMap();
         }
     });
 
 
-let modules = function () {
-    return 500;
-};
+function generateStartNode() {
 
-console.log("Here comes a modules return");
-console.log(modules());
+    const centerX = helper.getXCoord(Math.round((bw / tileW) / 2));
+    const centerY = helper.getYCoord(Math.round((bh / tileH) / 2));
+
+    let startNode = {
+        type: "start",
+        id: 0,
+        name: "Starting Node",
+        x: centerX,
+        y: centerY
+    };
+
+    nodes.push(startNode);
+
+}
+
 
 /**
- * Initialize Map
+ * Draw a node
+ * @param item
+ * @param index
  */
-console.log("Here Comes Map Data");
-console.log(mapData);
+function drawNode(item, index) {
 
 
-drawGrid();
-drawBackground();
+    /*
+        let x = helper.getXCoord(item.x);
+        let y = helper.getYCoord(item.y);
 
-if (200 === mapData) {
+        let image = new Image();
+        image.src = "/assets/dnc/node/" + item.type + ".png";
+        layer1.drawImage(image, x, y, tileW, tileH);
+        */
+
+}
+
+let baseNodes = [];
+let childNodes = [];
+
+function drawNodes() {
+
+    nodes.forEach(node => {
+
+        if (node.type === "start") {
+
+            let startImage = new Image();
+            startImage.src = "/assets/dnc/node/start.png";
+            layer1.drawImage(startImage, node.x, node.y, tileW, tileH);
+
+
+        } else if (node.type === "base") {
+            baseNodes.push(node);
+        } else {
+            childNodes.push(node);
+        }
+
+    });
+
+    //console.log(baseNodes.length);
+
+    baseNodes.forEach((bnode, index) => {
+
+        if (index === 0) {
+
+        }
+
+    });
+
+}
+
+
+/**
+ * Execute after initial Ajax loading of Nodes
+ */
+function setupMap() {
+
+    drawGrid();
+    drawBackground();
+    generateStartNode();
+
+    //console.log(nodes);
+
+
+    drawNodes();
+
+    const startNode = getNodeForType("start");
+    character.setStartNode(startNode);
+
+    console.log("character in set");
+    console.log(character);
+
+    //const listener = new Listener(character, nodes);
 
 
     //Todo implement this instead of each node under this...
     //nodes.forEach(drawEdges)
 
     //Todo remove this with upper line ...
-    drawEdgeBetweenNodes(nodes[0], nodes[1]);
+    /*drawEdgeBetweenNodes(nodes[0], nodes[1]);
     drawEdgeBetweenNodes(nodes[1], nodes[2]);
     drawEdgeBetweenNodes(nodes[2], nodes[3]);
     drawEdgeBetweenNodes(nodes[2], nodes[4]);
-    drawEdgeBetweenNodes(nodes[2], nodes[5]);
+    drawEdgeBetweenNodes(nodes[2], nodes[5]);*/
 
     //Todo implement new path Alhorithm directly with the nodes ...
-    getPathCoordinates(getNodeForName("start"), getNodeForName("node0"));
-    getPathCoordinates(getNodeForName("node0"), getNodeForName("node1"));
-    getPathCoordinates(getNodeForName("node1"), getNodeForName("node2"));
-    getPathCoordinates(getNodeForName("node1"), getNodeForName("node3"));
-    getPathCoordinates(getNodeForName("node1"), getNodeForName("node4"));
+    /*    getPathCoordinates(getNodeForType("start"), getNodeForType("node0"));
+        getPathCoordinates(getNodeForType("node0"), getNodeForType("node1"));
+        getPathCoordinates(getNodeForType("node1"), getNodeForType("node2"));
+        getPathCoordinates(getNodeForType("node1"), getNodeForType("node3"));
+        getPathCoordinates(getNodeForType("node1"), getNodeForType("node4"));*/
 
 
     nodes.forEach(drawNode);
 
+    animate();
+
 }
 
+function animate() {
+    requestAnimationFrame(animate);
+    characterLayer.clearRect(0, 0, characterLayer.width, characterLayer.height);
+    character.draw();
+}
+
+
+function openModal(node) {
+    this.nodeModal.style.display = "block";
+    document.getElementById("nodeModalTitle").innerText = node.namelong;
+    document.getElementById("nodeModalNodeName").innerText = node.abbr;
+    document.getElementById("nodeModalNodeDescription").innerHTML = node.description;
+}
+
+function closeModal() {
+    this.helpModal.style.display = "none";
+    this.nodeModal.style.display = "none";
+    localStorage.removeItem("modalOpen");
+}
+
+function canPlayerWalk(x, y) {
+    return true;
+}
+
+function isPlayerOnNode(x, y) {
+    const index = this.nodes.findIndex(n => {
+        return (n.x === x && n.y === y);
+    });
+    //console.log("playerOnNode: " + index);
+    return index !== -1;
+}
+
+function isPlayerOnPath(x, y) {
+    const index = pathCoords.findIndex((item, index) => {
+        return (item.x === x && item.y === y);
+    });
+    //console.log("playerOnPath: " + index);
+    return index !== -1;
+}
+
+function getNodeForCharacterPosition() {
+    const x = Math.round(character.x / 40);
+    const y = Math.round(character.y / 40);
+
+    return nodes.filter(n => {
+        if (n.x === x && n.y === y) {
+
+
+            if (n.name !== "start") {
+                //console.log("Character is on Node. Node: " + n.name);
+                localStorage.setItem('modalOpen', "true");
+                this.openNodeModal(n);
+            }
+
+        }
+    });
+}
+
+
+mapCanvasLayer.onmousemove = function (e) {
+
+    let mouseX, mouseY;
+
+    if (e.offsetX) {
+        mouseX = e.offsetX;
+        mouseY = e.offsetY;
+    } else if (e.layerX) {
+        mouseX = e.layerX;
+        mouseY = e.layerY;
+    }
+
+    document.getElementById("mousex").innerHTML = mouseX;
+    document.getElementById("mousey").innerHTML = mouseY;
+
+
+};
+
+mapCanvasLayer.onmouseleave = function (e) {
+    document.getElementById("mousex").innerHTML = "???";
+    document.getElementById("mousey").innerHTML = "???";
+
+};
+
+mapContainer.onscroll = function (e) {
+    document.getElementById("scrollx").innerHTML = window.scrollX;
+    document.getElementById("scrolly").innerHTML = window.scrollY;
+};
+
+window.onkeydown = function (e) {
+
+    switch (e.code) {
+        case 'ArrowUp':
+            if (character.y !== 0) {
+                if (this.canPlayerWalk(character.x, character.y - character.step)) {
+                    character.run = true;
+                    character.y -= character.step;
+                }
+            }
+            break;
+        case 'ArrowLeft':
+            if (character.x !== 0) {
+                if (this.canPlayerWalk(character.x - character.step, character.y)) {
+                    character.run = true;
+                    character.x -= character.step;
+                }
+            }
+            break;
+        case 'ArrowRight':
+
+            if (this.canPlayerWalk(character.x + character.step, character.y)) {
+                character.run = true;
+                character.x += character.step;
+            }
+            break;
+        case 'ArrowDown':
+            if (this.canPlayerWalk(character.x, character.y + character.step)) {
+                character.run = true;
+                character.y += character.step;
+            }
+            break;
+
+        case 'Space':
+            if (localStorage.getItem("modalOpen") === "true") {
+                this.closeModal();
+            } else {
+                this.getNodeForCharacterPosition();
+            }
+            break;
+        case 'Escape':
+            this.closeModal();
+            break;
+    }
+};
+
+window.onkeyup = function (e) {
+    character.run = false;
+};
+
+
+window.onclick = function (event) {
+    if (event.target === this.helpModal || event.target === this.nodeModal) {
+        this.closeModal();
+    }
+};
+
+
+helpModal.onclick = function () {
+    this.helpModal.style.display = "block";
+    localStorage.setItem("modalOpen", "true");
+};
+
+
+/**
+ * Check if a Player can Step on the next tile
+ * @param x
+ * @param y
+ */
+
+/*function canPlayerWalk(x, y) {
+
+    //console.log("Player next Tile: " + x + " " + y);
+
+    let xCoord = Math.round(x / 40);
+    let yCoord = Math.round(y / 40);
+
+    //console.log("Player next Tile: " + xCoord + " " + yCoord);
+
+    let checkPath = isPlayerOnPath(xCoord, yCoord);
+    let checkNode = isPlayerOnNode(xCoord, yCoord);
+
+    //console.log("Check for Path: " + checkPath);
+    //console.log("Check for Node: " + checkNode);
+
+    if (!checkPath) {
+        if (checkNode) {
+            return true;
+        }
+    } else {
+        return true;
+    }
+
+
+    return false;
+
+}*/

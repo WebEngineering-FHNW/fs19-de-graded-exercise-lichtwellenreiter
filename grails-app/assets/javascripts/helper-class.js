@@ -1,13 +1,15 @@
-export function Helper() {
+function Helper(tilew, tileh) {
     this.serverUrl = "http://localhost:8080";
+    this.tileW = tilew;
+    this.tileH = tileh;
 }
 
 Helper.prototype.getXCoord = function (x) {
-    return x * tileW;
+    return x * this.tileW;
 };
 
 Helper.prototype.getYCoord = function (y) {
-    return y * tileH;
+    return y * this.tileH;
 };
 
 Helper.prototype.doGet = function (resource, callback) {
@@ -27,7 +29,7 @@ Helper.prototype.doGet = function (resource, callback) {
             let error = {
                 "number": status,
                 "message": message
-            }
+            };
 
             callback(error, xhr.response);
         }

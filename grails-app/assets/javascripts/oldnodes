@@ -1,0 +1,73 @@
+
+let nodes = [
+    {
+        "name": "start",
+        "abbr": "start",
+        "namelong": "start",
+        "description": "-",
+        "x": 16,
+        "y": 5,
+        "edge": ["node0"],
+        "type": "start"
+    },
+    {
+        "name": "node0",
+        "abbr": "node0",
+        "namelong": "Objectoriented Programming 1",
+        "description": "<p>In this course, students learn a typical object-oriented programming language, its options and potential.</p>" +
+            "<p>Course content:</p>" +
+            "<ul>" +
+            "<li>Repetitive procedural programming (primitive data types, control structures, functions and parameter transfer, reference types, multi-dimensional arrays)</li>" +
+            "<li>Classes and objects (constructors, initialization blocks, methods, attributes, method overloading, lists, encapsulation, copying and comparing), wrapper classes, strings and packages</li>" +
+            "<li>Object oriented prototype, introduction to UML</li>" +
+            "<li>Inheritance, polymorphy, final elements, access rights</li>" +
+            "<li>Abstract classes and interfaces</li>" +
+            "<li>Static inner classes and element classes</li>" +
+            "<li>Exception handling</li>" +
+            "</ul>",
+        "x": 18,
+        "y": 5,
+        "edge": ["node1"],
+        "type": "node"
+    },
+    {
+        "name": "node1",
+        "abbr": "node1",
+        "namelong": "-",
+        "description": "-",
+        "x": 20,
+        "y": 9,
+        "edge": ["node2", "node3"],
+        "type": "node"
+    },
+    {
+        "name": "node2",
+        "abbr": "node2",
+        "namelong": "-",
+        "description": "-",
+        "x": 15,
+        "y": 11,
+        "edge": [],
+        "type": "node"
+    },
+    {
+        "name": "node3",
+        "abbr": "node3",
+        "namelong": "-",
+        "description": "-",
+        "x": 18,
+        "y": 15,
+        "edge": ["node1"],
+        "type": "node"
+    },
+    {
+        "name": "node4",
+        "abbr": "node4",
+        "namelong": "-",
+        "description": "-",
+        "x": 25,
+        "y": 5,
+        "edge": ["node1"],
+        "type": "node"
+    }
+];

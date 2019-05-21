@@ -65,7 +65,9 @@ and last but not least
 to all the blogs, magazines, books, videos that I consumed while I was working on this project.
 
 Other comments:  
--- Login to System by using credentials student/student
+-- Login to System by using credentials student/student  
+-- sadly I was not able to implement all functions due to not enough time  
+-- app does not work in safari & chrome due to canvas rendering issues. Implemented a browser check.
 
 I'm particular proud of:  
 -- the exessive use of the canvas element to draw the map and the paths

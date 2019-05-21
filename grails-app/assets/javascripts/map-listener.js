@@ -39,6 +39,7 @@ window.onkeydown = function (e) {
         case 'ArrowUp':
             if (character.y !== 0) {
                 if (canPlayerWalk(character.x, character.y - character.step)) {
+                    character.run = true;
                     character.y -= character.step;
                 }
             }
@@ -46,6 +47,7 @@ window.onkeydown = function (e) {
         case 'ArrowLeft':
             if (character.x !== 0) {
                 if (canPlayerWalk(character.x - character.step, character.y)) {
+                    character.run = true;
                     character.x -= character.step;
                 }
             }
@@ -53,11 +55,13 @@ window.onkeydown = function (e) {
         case 'ArrowRight':
 
             if (canPlayerWalk(character.x + character.step, character.y)) {
+                character.run = true;
                 character.x += character.step;
             }
             break;
         case 'ArrowDown':
             if (canPlayerWalk(character.x, character.y + character.step)) {
+                character.run = true;
                 character.y += character.step;
             }
             break;
@@ -74,6 +78,12 @@ window.onkeydown = function (e) {
             break;
     }
 };
+
+window.onkeyup = function (e) {
+    character.run = false;
+}
+
+
 
 window.onclick = function (event) {
     if (event.target === helpModal || event.target === nodeModal) {
@@ -106,7 +116,8 @@ function closeModal() {
  * @param x
  * @param y
  */
-function canPlayerWalk(x, y) {
+
+/*function canPlayerWalk(x, y) {
 
     console.log("Player next Tile: " + x + " " + y);
 
@@ -132,6 +143,10 @@ function canPlayerWalk(x, y) {
 
     return false;
 
+}*/
+
+function canPlayerWalk(x, y) {
+    return true;
 }
 
 function isPlayerOnNode(x, y) {

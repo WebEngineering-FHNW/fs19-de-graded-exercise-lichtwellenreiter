@@ -29,6 +29,7 @@ mapContainer.scrollTo(mapContainer.left + mapContainer.width / 2, mapContainer.t
 
 let layer1 = mapCanvasLayer1.getContext("2d");
 let pathCoords = [];
+let mapData = 0;
 
 let nodes = [
     {
@@ -282,43 +283,52 @@ function getNodeForName(name) {
  * Get Data from Backend
  */
 
-let mapData = doGet('/module',
+let mods = doGet('/module',
     function (err, data) {
         if (err !== null) {
             alert('Cannot calling Map Data \n ' +
                 'Error raised: ' + err.number + '\n' +
                 err.message);
-            return 500;
+            mapData = 500;
 
         } else {
             console.log("from ajax");
             console.log(data);
-
-            return 200;
         }
     });
 
 
+let modules = function () {
+    return 500;
+};
+
+console.log("Here comes a modules return");
+console.log(modules());
+
 /**
  * Initialize Map
  */
+console.log("Here Comes Map Data");
+console.log(mapData);
+
+
+drawGrid();
+drawBackground();
 
 if (200 === mapData) {
 
-    drawGrid();
-    drawBackground();
 
+    //Todo implement this instead of each node under this...
+    //nodes.forEach(drawEdges)
 
-//Todo implement this instead of each node under this...
-//nodes.forEach(drawEdges)
-
-//Todo remove this with upper line ...
+    //Todo remove this with upper line ...
     drawEdgeBetweenNodes(nodes[0], nodes[1]);
     drawEdgeBetweenNodes(nodes[1], nodes[2]);
     drawEdgeBetweenNodes(nodes[2], nodes[3]);
     drawEdgeBetweenNodes(nodes[2], nodes[4]);
     drawEdgeBetweenNodes(nodes[2], nodes[5]);
 
+    //Todo implement new path Alhorithm directly with the nodes ...
     getPathCoordinates(getNodeForName("start"), getNodeForName("node0"));
     getPathCoordinates(getNodeForName("node0"), getNodeForName("node1"));
     getPathCoordinates(getNodeForName("node1"), getNodeForName("node2"));

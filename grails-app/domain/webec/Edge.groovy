@@ -10,5 +10,8 @@ class Edge {
     Module child
 
     static constraints = {
+        parent nullable: false
+        child nullable: false
     }
+
 }

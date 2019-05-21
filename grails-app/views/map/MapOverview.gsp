@@ -63,7 +63,7 @@
 <!-- Help Modal -->
 <div id="helpModal" class="modal">
     <div class="modal-content">
-        <span class="closeModal">&times;</span>
+        <span class="closeModal"  onclick="closeModal();return false">&times;</span>
 
         <h3>Help</h3>
 
@@ -80,14 +80,19 @@
 <!-- Node Modal -->
 <div id="nodeModal" class="modal">
     <div class="modal-content">
-        <span class="closeModal" onclick="closeModal();
-        return false">&times;</span>
+        <span class="closeModal" onclick="closeModal();return false">&times;</span>
 
         <h3 id="nodeModalTitle">modulename</h3>
 
         <p>Modul:  <span id="nodeModalNodeName"></span></p>
 
         <p id="nodeModalNodeDescription"></p>
+
+        <p>
+            <span id="nodeModalCredits"></span>
+            <span id="nodeModalMSP"></span>
+        </p>
+
     </div>
 </div>
 

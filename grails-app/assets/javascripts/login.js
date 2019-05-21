@@ -24,6 +24,10 @@ let browser = navigator.sayswho = (function () {
 })();
 
 
+/**
+ * Check for the Browser
+ */
+
 if (browser.includes("Firefox") || browser.includes("firefox")) {
 
     notsupported.style.visibility = 'hidden';

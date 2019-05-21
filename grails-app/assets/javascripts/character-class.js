@@ -8,16 +8,26 @@ function Character(charstep, charlayer, help) {
     this.helper = help;
 }
 
+/**
+ * Set the Start position of the Character based on the start node
+ * @param startNode
+ */
 Character.prototype.setStartNode = function(startNode){
     this.x = this.helper.getXCoord(startNode.x);
     this.y = this.helper.getYCoord(startNode.y);
 };
 
-
+/**
+ * Check if the Character is running
+ * @returns {boolean}
+ */
 Character.prototype.isRunning = function () {
     return this.run;
 };
 
+/**
+ * Character Update function
+ */
 Character.prototype.draw = function () {
 
     let canvas = document.getElementById("mapLayer2");

@@ -1,3 +1,7 @@
+/**
+ * Main JS File with the Map functionality
+ */
+
 const bw = window.innerWidth;
 const bh = window.innerHeight;
 
@@ -16,29 +20,31 @@ const tileH = 40;
 // do show the grid
 const showGrid = 0;
 
+// The Map Canvas
 let mapCanvasLayer = document.getElementById("mapLayer1");
 let mapContainer = document.getElementById("mapContainer");
 
 mapCanvasLayer.width = cw;
 mapCanvasLayer.height = ch;
 
+// the player canvas
 let characterCanvasLayer = document.getElementById("mapLayer2");
 let characterLayer = characterCanvasLayer.getContext("2d");
 
 characterCanvasLayer.width = cw;
 characterCanvasLayer.height = ch;
 
-
 const helper = new Helper(tileW, tileH);
 const character = new Character(40, characterLayer, helper);
 
 mapContainer.scrollTo(mapContainer.left + mapContainer.width / 2, mapContainer.top + mapContainer.height / 2);
 
-let layer1 = mapCanvasLayer.getContext("2d");
+let mapContext = mapCanvasLayer.getContext("2d");
 let pathCoords = [];
 let nodes = [];
 let edges = []
 
+// UI Elements
 const helpButton = document.getElementById("helpButton");
 const helpModal = document.getElementById('helpModal');
 const nodeModal = document.getElementById('nodeModal');
@@ -52,19 +58,19 @@ function drawGrid() {
     if (1 === showGrid) {
 
         for (let x = 0; x <= bw; x += tileW) {
-            layer1.moveTo(0.5 + x + p, p);
-            layer1.lineTo(0.5 + x + p, bh + p);
+            mapContext.moveTo(0.5 + x + p, p);
+            mapContext.lineTo(0.5 + x + p, bh + p);
         }
 
 
         for (let x = 0; x <= bh; x += tileH) {
-            layer1.moveTo(p, 0.5 + x + p);
-            layer1.lineTo(bw + p, 0.5 + x + p);
+            mapContext.moveTo(p, 0.5 + x + p);
+            mapContext.lineTo(bw + p, 0.5 + x + p);
         }
 
-        layer1.lineWidth = 1;
-        layer1.strokeStyle = "black";
-        layer1.stroke();
+        mapContext.lineWidth = 1;
+        mapContext.strokeStyle = "black";
+        mapContext.stroke();
     }
 
     document.getElementById("numTiles").innerText = ((bw / tileW) * (bh / tileH)).toString();
@@ -84,7 +90,7 @@ function drawBackground() {
             let image = new Image();
             let randTile = Math.floor(Math.random() * 5 + 1);
             image.src = "/assets/dnc/floor/floor_" + randTile + ".png";
-            layer1.drawImage(image, helper.getXCoord(i), helper.getYCoord(j), tileW, tileH);
+            mapContext.drawImage(image, helper.getXCoord(i), helper.getYCoord(j), tileW, tileH);
         }
     }
 }
@@ -96,17 +102,22 @@ function drawBackground() {
  * @param n2
  */
 function drawEdgeBetweenNodes(n1, n2) {
-    layer1.beginPath();
-    layer1.moveTo(helper.getXCoord(n1.x) + (0.5 * tileW), helper.getYCoord(n1.y) + (0.5 * tileH));
-    layer1.lineTo(helper.getXCoord(n1.x) + (0.5 * tileW), helper.getYCoord(n2.y) + (0.5 * tileH));
-    layer1.lineTo(helper.getXCoord(n2.x) + (0.5 * tileW), helper.getYCoord(n2.y) + (0.5 * tileH));
+    mapContext.beginPath();
+    mapContext.moveTo(helper.getXCoord(n1.x) + (0.5 * tileW), helper.getYCoord(n1.y) + (0.5 * tileH));
+    mapContext.lineTo(helper.getXCoord(n1.x) + (0.5 * tileW), helper.getYCoord(n2.y) + (0.5 * tileH));
+    mapContext.lineTo(helper.getXCoord(n2.x) + (0.5 * tileW), helper.getYCoord(n2.y) + (0.5 * tileH));
 
-    layer1.strokeStyle = "#d6ac2a";
-    layer1.lineWidth = 10;
-    layer1.stroke();
+    mapContext.strokeStyle = "#d6ac2a";
+    mapContext.lineWidth = 10;
+    mapContext.stroke();
 
 }
 
+/**
+ * Filter for Path Coordinates based on two nodes n1 and n2
+ * @param n1
+ * @param n2
+ */
 function getPathCoordinates(n1, n2) {
 
     //FirstNode to corner
@@ -134,7 +145,7 @@ function getPathCoordinates(n1, n2) {
         while (cornerY != startY) {
             pathCoords.push({"x": startX, "y": cornerY});
             cornerY++;
-            //// //console.log(cornerY);
+            //console.log(cornerY);
         }
     }
 
@@ -150,11 +161,11 @@ function getPathCoordinates(n1, n2) {
         while (cornerX != endX) {
             pathCoords.push({"x": endX, "y": cornerY});
             cornerX++;
-            //// //console.log(cornerX);
+           //console.log(cornerX);
         }
     }
 
-    //// //console.log(pathCoords);
+    //console.log(pathCoords);
 }
 
 /**
@@ -173,14 +184,14 @@ function drawEdges(node, index) {
 
             let nnode = getNodeForType(node.edge[i]);
 
-            layer1.moveTo(node.x + centerW, node.y + centerH);
-            layer1.lineTo(node.x + centerW, nnode.y + centerH);
-            layer1.lineTo(nnode.x + centerW, nnode.y + centerH);
+            mapContext.moveTo(node.x + centerW, node.y + centerH);
+            mapContext.lineTo(node.x + centerW, nnode.y + centerH);
+            mapContext.lineTo(nnode.x + centerW, nnode.y + centerH);
 
-            layer1.strokeStyle = "black";
-            layer1.lineWidth = 2;
-            layer1.stroke();
-            layer1.lineWidth = 1;
+            mapContext.strokeStyle = "black";
+            mapContext.lineWidth = 2;
+            mapContext.stroke();
+            mapContext.lineWidth = 1;
         }
     }
 }
@@ -194,30 +205,18 @@ function getNodeForType(type) {
     return nodes.find(node => node.type === type);
 }
 
+/**
+ * Geta Node from Node Array based in its id
+ * @param id
+ * @returns {undefined | *}
+ */
 function getNodeForId(id) {
     return nodes.find(node => node.id === id);
-    ;
 }
 
-function generateStartNode() {
-
-    const centerX = Math.round((bw / tileW) / 2);
-    const centerY = Math.round((bh / tileH) / 2);
-
-    let startNode = {
-        type: "start",
-        id: 0,
-        name: "Starting Node",
-        x: centerX,
-        y: centerY
-    };
-
-    nodes.push(startNode);
-
-}
-
-
-
+/**
+ * Draw all nodes to the map
+ */
 function drawNodes() {
 
     nodes.forEach(node => {
@@ -226,17 +225,20 @@ function drawNodes() {
 
             const startImage = new Image();
             startImage.src = "/assets/dnc/node/start.png";
-            layer1.drawImage(startImage, helper.getXCoord(node.x), helper.getYCoord(node.y), tileW, tileH);
+            mapContext.drawImage(startImage, helper.getXCoord(node.x), helper.getYCoord(node.y), tileW, tileH);
 
         } else {
             const nodeImage = new Image();
             nodeImage.src = "/assets/dnc/node/node.png";
-            layer1.drawImage(nodeImage, helper.getXCoord(node.x), helper.getYCoord(node.y), tileW, tileH);
+            mapContext.drawImage(nodeImage, helper.getXCoord(node.x), helper.getYCoord(node.y), tileW, tileH);
         }
 
     });
 }
 
+/**
+ * Draw Paths between Nodes
+ */
 function drawPaths() {
     edges.forEach(edge => {
         drawEdgeBetweenNodes(getNodeForId(edge.parent.id), getNodeForId(edge.child.id));
@@ -284,17 +286,24 @@ function setupMap() {
     const startNode = getNodeForType("start");
     character.setStartNode(startNode);
 
+    // Start the animation
     animate();
 
 }
 
+/**
+ * Run the Animation Loop
+ */
 function animate() {
     requestAnimationFrame(animate);
     characterLayer.clearRect(0, 0, characterLayer.width, characterLayer.height);
     character.draw();
 }
 
-
+/**
+ * Open a Modal on User Request, based on node informtion
+ * @param node
+ */
 function openModal(node) {
     localStorage.setItem('modalOpen', "true");
     this.nodeModal.style.display = "block";
@@ -317,32 +326,29 @@ function openModal(node) {
 
 }
 
+/**
+ * close all modal
+ */
 function closeModal() {
     this.helpModal.style.display = "none";
     this.nodeModal.style.display = "none";
     localStorage.removeItem("modalOpen");
 }
 
+/**
+ * Check if the player can walk
+ * NOTICE: Actual only true due to less time to imlpement
+ * @param x
+ * @param y
+ * @returns {boolean}
+ */
 function canPlayerWalk(x, y) {
     return true;
 }
 
-function isPlayerOnNode(x, y) {
-    const index = this.nodes.findIndex(n => {
-        return (n.x === x && n.y === y);
-    });
-    //console.log("playerOnNode: " + index);
-    return index !== -1;
-}
-
-function isPlayerOnPath(x, y) {
-    const index = pathCoords.findIndex((item, index) => {
-        return (item.x === x && item.y === y);
-    });
-    //console.log("playerOnPath: " + index);
-    return index !== -1;
-}
-
+/**
+ * Get A node from the Characters position
+ */
 function getNodeForCharacterPosition() {
     const x = Math.round(character.x / 40);
     const y = Math.round(character.y / 40);
@@ -361,6 +367,12 @@ function getNodeForCharacterPosition() {
     openModal(getNodeForId(node[0].id));
 }
 
+
+/**
+ *
+ * ALL LISTENERS HERE
+ *
+ */
 
 mapCanvasLayer.onmousemove = function (e) {
 

@@ -114,7 +114,7 @@
 <asset:image src="dnc/characters/ogre.png" alt="ogre2"/>
 <asset:image src="dnc/characters/ogre-walking.gif" alt="ogre3"/>
 
-<!--asset:javascript src="listener-class.js"/-->
+
 <asset:javascript src="character-class.js"/>
 <asset:javascript src="helper-class.js"/>
 

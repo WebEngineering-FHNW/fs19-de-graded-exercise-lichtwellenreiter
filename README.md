@@ -57,7 +57,7 @@ External contributions:
 -- Thanks to Christopher Lis www.christopherlis.com | https://github.com/christopher4lis and his awesome youtube channel. That pushed me really into JS Canvas Element
 
 Other comments:  
--- Login to System by using credentials admin/admin
+-- Login to System by using credentials student/student
 
 I'm particular proud of:  
 -- the exessive use of the canvas element to draw the map and the paths

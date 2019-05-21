@@ -66,7 +66,7 @@ to all the blogs, magazines, books, videos that I consumed while I was working o
 
 Other comments:  
 -- Login to System by using credentials student/student  
--- sadly I was not able to implement all functions due to not enough time (as example: player has to stay on path, ...)
+-- sadly I was not able to implement all functions due to not enough time (as example: player has to stay on path, ...)  
 -- app does not work in safari & chrome due to canvas rendering issues. Implemented a browser check.
 
 I'm particular proud of:  

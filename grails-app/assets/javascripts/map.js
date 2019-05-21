@@ -217,27 +217,6 @@ function generateStartNode() {
 }
 
 
-/**
- * Draw a node
- * @param item
- * @param index
- */
-function drawNode(item, index) {
-
-
-    /*
-        let x = helper.getXCoord(item.x);
-        let y = helper.getYCoord(item.y);
-
-        let image = new Image();
-        image.src = "/assets/dnc/node/" + item.type + ".png";
-        layer1.drawImage(image, x, y, tileW, tileH);
-        */
-
-}
-
-let baseNodes = [];
-let childNodes = [];
 
 function drawNodes() {
 
@@ -304,33 +283,6 @@ function setupMap() {
 
     const startNode = getNodeForType("start");
     character.setStartNode(startNode);
-
-    console.log("character in set");
-    console.log(character);
-
-    //const listener = new Listener(character, nodes);
-
-
-    //Todo implement this instead of each node under this...
-    //nodes.forEach(drawEdges)
-
-    //Todo remove this with upper line ...
-    /*;
-    drawEdgeBetweenNodes(nodes[1], nodes[2]);
-    drawEdgeBetweenNodes(nodes[2], nodes[3]);
-    drawEdgeBetweenNodes(nodes[2], nodes[4]);
-    drawEdgeBetweenNodes(nodes[2], nodes[5]);*/
-
-    //Todo implement new path Alhorithm directly with the nodes ...
-    /*    getPathCoordinates(getNodeForType("start"), getNodeForType("node0"));
-        getPathCoordinates(getNodeForType("node0"), getNodeForType("node1"));
-        getPathCoordinates(getNodeForType("node1"), getNodeForType("node2"));
-        getPathCoordinates(getNodeForType("node1"), getNodeForType("node3"));
-        getPathCoordinates(getNodeForType("node1"), getNodeForType("node4"));*/
-
-    console.log(nodes);
-    console.log(edges);
-
 
     animate();
 
@@ -505,38 +457,3 @@ helpButton.onclick = function () {
     helpModal.style.display = "block";
     localStorage.setItem("modalOpen", "true");
 };
-
-
-/**
- * Check if a Player can Step on the next tile
- * @param x
- * @param y
- */
-
-/*function canPlayerWalk(x, y) {
-
-    //console.log("Player next Tile: " + x + " " + y);
-
-    let xCoord = Math.round(x / 40);
-    let yCoord = Math.round(y / 40);
-
-    //console.log("Player next Tile: " + xCoord + " " + yCoord);
-
-    let checkPath = isPlayerOnPath(xCoord, yCoord);
-    let checkNode = isPlayerOnNode(xCoord, yCoord);
-
-    //console.log("Check for Path: " + checkPath);
-    //console.log("Check for Node: " + checkNode);
-
-    if (!checkPath) {
-        if (checkNode) {
-            return true;
-        }
-    } else {
-        return true;
-    }
-
-
-    return false;
-
-}*/

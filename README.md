@@ -76,4 +76,44 @@ I'm particular proud of:
 
 ## Project grading 
 
-< to be filled by lecturer>
+It appears that the static index.html was not given. Missing add/commit/push ?
+
+The application works to the extend that the functionality was implemented.
+
+Functionality:
+- very basic navigation
+- user input via arrow keys
+- validation via domain class constraints
+- customized login/home view
+- basic role-based security
+- domain classes to capture the world with modules and edges
+  the domain is exposed as REST services
+  the game board is build dynamically from the domain data
+  user can lead a sprite over the board with arror keys
+  domain data prefilled in the bootstrap
+  no CRUD operations available to the user
+  
+Engineering:
+- very extensive commit log (112 commits is a new record high)
+- there is one really nice data-driven test for a domain constraint, but many tests are missing
+- all other aspects are fine
+
+I award extra points for exposing and calling services as well as the extra effort that is clearly
+visible from the commit log.
+
+The nature of this project makes it difficult to grade as it does not follow a classical WebMVC
+approach but rather that of a single-page application with a fat-client architecture.
+Future modules (security, web programming, web clients, ...) will show you more options of how to further improve
+your current solution (fetch API, animation, JWT).
+I very much appreciate your courage to take the unconventional path, the creative spirit that
+you have shown in the exercise, your developer pride to stay away from big js frameworks, and
+the extra effort that you have invested.
+
+Congratulations!
+
+Grade: 6.0
+
+P.S. 
+I'd be interested to know which canvas feature prohibited you from supporting Safari/Chrome as
+painting on the canvas is usually one the few features that is really  well supported
+across all browsers. 

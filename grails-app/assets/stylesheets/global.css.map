@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "sourceRoot": "",
+  "sources": [
+    "global.scss"
+  ],
+  "names": [],
+  "mappings": "AAAQ",
+  "file": "global.css"
+}

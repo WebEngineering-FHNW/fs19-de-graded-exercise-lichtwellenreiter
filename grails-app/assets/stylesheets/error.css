@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+/**
+ * Stylesheet for error pages
+ */
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
 
 body {
     background-image: url("../images/dnc/error-bg.png");
@@ -8,7 +11,7 @@ body {
     background-size: cover;
     background-color: #464646;
     overflow: hidden;
-    font-family: 'Press Start 2P', cursive;
+    font-family: "Press Start 2P", cursive;
 }
 
 .error-box {
@@ -23,8 +26,8 @@ body {
     border-radius: 5px;
     padding: 20px;
     text-align: center;
-
 }
+
 .error-box-wide {
     position: fixed;
     background-color: rgba(255, 255, 255, 0.6);
@@ -46,3 +49,5 @@ body {
     right: 0;
     left: 0;
 }
+
+/*# sourceMappingURL=error.css.map */

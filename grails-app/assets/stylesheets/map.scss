@@ -1,0 +1,161 @@
+@import 'global.scss';
+
+html, body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  background-color: #95afc0;
+  font-family: $pixel-font;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: #ecf0f1;
+}
+
+
+/** --------------------------------------------------------------------------------------------------------------- **\
+    STATUS BAR aka MENU
+\** --------------------------------------------------------------------------------------------------------------- **/
+.stat-bar {
+  height: 60px;
+  width: 100%;
+  background-color: #535c68;
+  margin: 0;
+  color: #ecf0f1;
+
+  grid-gap: 0;
+  display: grid;
+  grid-template-columns: 33.333333% 33.33333% 33.33333%;
+}
+
+.stat-left, .stat-center, .stat-right {
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+}
+
+.stat-center {
+  justify-self: center;
+  align-self: normal;
+}
+
+.keyring li {
+  list-style-type: none;
+  text-align: center;
+  font-size: 0.6em;
+  line-height: 1em;
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 100%;
+}
+
+.keyname {
+  margin-bottom: 5px;
+  line-height: 1em;
+  justify-self: center;
+}
+
+.keyplace {
+  max-width: 50px;
+  justify-self: center;
+}
+
+.stat-right {
+  justify-self: end;
+}
+
+.stat-button {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid #88939f;
+}
+
+.stat-button:hover {
+  background-color: #3d4551;
+}
+
+/** --------------------------------------------------------------------------------------------------------------- **\
+    MAIN CONTENT
+\** --------------------------------------------------------------------------------------------------------------- **/
+
+.main-map {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+
+canvas {
+  position: absolute;
+  top: 60px;
+  left: 0;
+}
+
+#mapLayer1 {
+  z-index: 1;
+}
+
+#mapLayer2 {
+  z-index: 2;
+}
+
+/** --------------------------------------------------------------------------------------------------------------- **\
+    FOOTER CONTENT
+\** --------------------------------------------------------------------------------------------------------------- **/
+
+.footer-bar {
+  position: fixed;
+  height: 20px;
+  width: 100%;
+  bottom: 0;
+  color: #ecf0f1;
+  background-color: #000000;
+  margin: 0;
+  font-size: 0.5em;
+
+  grid-gap: 0;
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+}
+
+.footer-text {
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+}
+
+
+/** --------------------------------------------------------------------------------------------------------------- **\
+    EXTERNAL Tooltip Styles from w3schools.com
+\** --------------------------------------------------------------------------------------------------------------- **/
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  top: -5px;
+  left: 105%;
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

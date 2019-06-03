@@ -1,0 +1,11 @@
+{
+  "version": 3,
+  "sourceRoot": "",
+  "sources": [
+    "error.scss",
+    "global.scss"
+  ],
+  "names": [],
+  "mappings": "AAAA;AAAA;AAAA;ACAQ;ADMR;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA,aCTW;;;ADYb;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;;AAIF;EACE;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;;;AAGF;EACE;EACA;EACA;EACA;EACA",
+  "file": "error.css"
+}
